@@ -1,0 +1,2629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows XP Professional Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* --- CORE SYSTEM --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Tahoma", "Segoe UI", Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #5A8FCA;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .desktop-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZGVmcz4KICAgIDxyYWRpYWxHcmFkaWVudCBpZD0iZ3JhZGllbnQiIGN4PSI1MCUiIGN5PSI1MCUiIHI9IjUwJSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiM4OEIzRTA7c3RvcC1vcGFjaXR5OjAuMyIgLz4KICAgICAgPHN0b3Agb2Zmc2V0PSI1MCUiIHN0eWxlPSJzdG9wLWNvbG9yOiM1QThGQ0E7c3RvcC1vcGFjaXR5OjAuMiIgLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojMzI3MEIzO3N0b3Atb3BhY2l0eTowLjEiIC8+CiAgICA8L3JhZGlhbEdyYWRpZW50PgogIDwvZGVmcz4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWRpZW50KSIgLz4KPC9zdmc+'), 
+                        linear-gradient(135deg, #5A8FCA 0%, #3270B3 50%, #2A5A8F 100%);
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+        }
+        
+        @keyframes copySuccess {
+            0% { transform: scale(1); }
+            50% { transform: scale(0.95); }
+            100% { transform: scale(1); }
+        }
+
+        .copy-success {
+            animation: copySuccess 0.5s ease;
+            background: #28a745 !important;
+            box-shadow: 0 0 0 2px rgba(40, 167, 69, 0.3) !important;
+        }
+
+        /* Ensure buttons have smooth transitions */
+        button {
+            transition: all 0.2s ease;
+        }
+
+        /* --- DESKTOP ICONS --- */
+        .desktop {
+            position: relative;
+            width: 100%;
+            height: calc(100vh - 40px);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            align-content: flex-start;
+            gap: 25px;
+        }
+
+        .desktop-icon {
+            width: 85px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+            padding: 5px;
+            border: 1px solid transparent;
+            user-select: none;
+        }
+
+        .desktop-icon:hover { background: rgba(255, 255, 255, 0.2); border: 1px dotted rgba(255, 255, 255, 0.5); }
+        .desktop-icon.selected { background: rgba(10, 36, 106, 0.5); border: 1px dotted white; }
+
+        .icon-img { font-size: 42px; margin-bottom: 5px; filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.5)); }
+        .icon-label {
+            font-size: 11px;
+            color: white;
+            text-shadow: 1px 1px 2px #000;
+            padding: 1px 4px;
+        }
+
+        /* --- WINDOW SYSTEM --- */
+        .window {
+            position: absolute;
+            background-color: #ece9d8;
+            border: none;
+            box-shadow: 0 0 0 1px rgba(0,0,0,0.3), 0 0 0 3px #0831D9, 0 0 0 4px #4C8BF5, 3px 3px 8px rgba(0,0,0,0.4);
+            display: none;
+            overflow: visible;
+            min-width: 200px;
+            min-height: 100px;
+        }
+
+        .window-header {
+            background: linear-gradient(to bottom, #0997FF 0%, #0053EE 3%, #0050EE 6%, #0054F0 8%, #0058F1 10%, #1462F3 14%, #0955EC 20%, #0F52EC 25%, #1A4FE8 35%, #1A4CE4 50%, #1947DD 60%, #1943D8 70%, #1940D4 80%, #1D3DD1 90%, #1C3BCF 95%, #1E3BBD 100%);
+            color: white;
+            padding: 3px 5px 3px 3px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: move;
+            font-weight: bold;
+            font-size: 11px;
+            height: 30px;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            user-select: none;
+        }
+
+        .window-header span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding-left: 2px;
+        }
+
+        .window-header i {
+            font-size: 14px;
+        }
+
+        .window-controls { display: flex; gap: 2px; }
+        .window-control {
+            width: 21px; height: 21px;
+            background: linear-gradient(to bottom, #F1F3FA 0%, #D4DAF0 40%, #BCC7E8 100%);
+            border: 1px solid #0831D9;
+            border-radius: 3px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 11px; cursor: pointer; color: black; font-weight: bold;
+            box-shadow: inset 1px 1px 0 rgba(255,255,255,0.8), inset -1px -1px 0 rgba(0,0,0,0.1);
+        }
+        .window-control:hover {
+            background: linear-gradient(to bottom, #FFF 0%, #E8ECFA 40%, #D0D9F2 100%);
+        }
+        .window-control.minimize::after { content: '_'; margin-top: -4px; font-size: 16px; }
+        .window-control.maximize::after { 
+            content: ''; 
+            width: 8px; 
+            height: 8px; 
+            border: 2px solid #000;
+            border-top-width: 3px;
+        }
+        .window-control.close { 
+            background: linear-gradient(to bottom, #FF9C9A 0%, #F77C7A 40%, #F45E5C 100%);
+            border-color: #C13432;
+        }
+        .window-control.close:hover {
+            background: linear-gradient(to bottom, #FFB2B0 0%, #FF8C8A 40%, #FF6E6C 100%);
+        }
+        .window-control.close::before { content: '×'; font-size: 18px; margin-top: -2px; }
+
+        .window-content {
+            height: calc(100% - 30px);
+            overflow-y: auto;
+            background: #ece9d8;
+        }
+
+        /* --- RESIZER HANDLES --- */
+        .resizer { position: absolute; background: transparent; user-select: none; }
+        .resizer.n { top: -5px; left: 0; width: 100%; height: 10px; cursor: n-resize; }
+        .resizer.s { bottom: -5px; left: 0; width: 100%; height: 10px; cursor: s-resize; }
+        .resizer.e { right: -5px; top: 0; width: 10px; height: 100%; cursor: e-resize; }
+        .resizer.w { left: -5px; top: 0; width: 10px; height: 100%; cursor: w-resize; }
+        .resizer.nw { top: -5px; left: -5px; width: 15px; height: 15px; cursor: nw-resize; z-index: 2; }
+        .resizer.ne { top: -5px; right: -5px; width: 15px; height: 15px; cursor: ne-resize; z-index: 2; }
+        .resizer.sw { bottom: -5px; left: -5px; width: 15px; height: 15px; cursor: sw-resize; z-index: 2; }
+        .resizer.se { bottom: -5px; right: -5px; width: 15px; height: 15px; cursor: se-resize; z-index: 2; }
+
+        /* --- TERMINAL (POWERSHELL) --- */
+        .terminal-content {
+            background-color: #012456;
+            color: #fff;
+            font-family: 'Consolas', 'Lucida Console', monospace;
+            padding: 10px;
+        }
+        .terminal-input-line { display: flex; align-items: baseline; width: 100%; }
+        .terminal-prompt { white-space: nowrap; margin-right: 8px; color: #fff; }
+        .terminal-input { background: transparent; border: none; outline: none; color: white; font-family: inherit; font-size: inherit; flex: 1; }
+
+        /* --- PROJECT SECTION --- */
+        .project-card {
+                position: relative;
+                overflow: hidden; /* Clips the internal transforms */
+                border: none;
+                border-left: 5px solid #ff9900;
+                padding: 20px;
+                background: #fffef2;
+                max-width: 80%;
+                margin: 0 auto 25px auto;
+                box-shadow: 2px 2px 8px rgba(0,0,0,0.05);
+                border-radius: 8px;
+                transition: all 0.4s ease;
+                cursor: default;
+            }
+
+          /* The "Group" hover effect container */
+          .project-content-wrapper {
+              transition: transform 0.5s ease;
+              transform: translateY(0);
+          }
+
+          .project-card:hover .project-content-wrapper {
+              transform: translateY(-10px); /* Slides the whole content up slightly */
+          }
+
+          .project-banner {
+              background-color: #ff9900;
+              height: 180px;
+              border-radius: 8px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin-bottom: 15px;
+              transition: transform 0.5s ease, filter 0.3s ease;
+          }
+          
+          /* Add this to your CSS */
+          .project-banner img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover; /* This makes the image fill the banner without stretching */
+              border-radius: inherit; /* Keeps the rounded corners you set on the banner */
+          }
+          .project-banner h1 {
+            color: white;
+            font-size: 55px;
+            font-family: Arial, sans-serif;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+          }
+
+
+          /* Image/Banner transform on hover */
+          .project-card:hover .project-banner {
+              transform: scale(1.02);
+          }
+
+          .project-title {
+              color: #7d4e1a;
+              font-size: 1.4rem;
+              font-weight: bold;
+              display: flex;
+              align-items: center;
+              gap: 10px;
+              margin-bottom: 8px;
+          }
+
+          /* Button starts hidden and slides up */
+          .btn-container {
+                margin-top: 15px;
+                opacity: 0;
+                transform: translateY(10px);
+              transition: all 0.3s ease;
+          }
+
+          .project-card:hover .btn-container {
+              opacity: 1;
+              transform: translateY(0);
+          }
+
+          .project-btn {
+              background: #c9a33b;
+              color: white;
+              border: none;
+              padding: 10px 20px;
+              border-radius: 6px;
+              font-weight: bold;
+              cursor: pointer;
+              text-decoration: none;
+              display: inline-flex;
+              align-items: center;
+              gap: 8px;
+              box-shadow: 0 4px 10px rgba(201, 163, 59, 0.2);
+          }
+
+          .project-btn:hover {
+            background: #b08d2e;
+        }       
+      .project-desc {
+            color: #7d4e1a;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        .tag-container { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+        .project-tag {
+            background: #f1ebd7;
+            color: #7d4e1a;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+    /* Experience - Enhanced Blue Timeline */
+        #experience-window .window-content {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e6e6e6;
+            padding: 25px 30px;
+            border-radius: 0 0 12px 12px;
+        }
+
+        #experience-window .window-content h2 {
+            color: #4cc9f0;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(76, 201, 240, 0.3);
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        #experience-window .exp-container {
+            position: relative;
+            padding-left: 30px;
+            margin-left: 10px;
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        /* Vertical timeline line */
+        #experience-window .exp-container::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, #4cc9f0, #4361ee, #3a0ca3);
+            border-radius: 3px;
+        }
+
+        #experience-window .exp-item {
+            margin-bottom: 40px;
+            position: relative;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 22px;
+            border-left: 4px solid #4cc9f0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        #experience-window .exp-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateX(5px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Timeline dots */
+        #experience-window .exp-item::before {
+            content: '';
+            position: absolute;
+            left: -45px;
+            top: 30px;
+            width: 18px;
+            height: 18px;
+            background: #1a1a2e;
+            border: 4px solid #4cc9f0;
+            border-radius: 50%;
+            z-index: 2;
+            box-shadow: 0 0 0 4px rgba(76, 201, 240, 0.2);
+        }
+
+        /* Company and date header */
+        #experience-window .exp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        #experience-window .exp-item h3 {
+            color: #4cc9f0;
+            margin: 0;
+            font-size: 1.35rem;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+        }
+
+        #experience-window .exp-item h4 {
+            color: #b8c1ec;
+            margin: 5px 0 15px 0;
+            font-size: 1.15rem;
+            font-weight: 600;
+            font-style: italic;
+        }
+
+        #experience-window .exp-item .date {
+            color: #a0a0c0;
+            font-size: 0.9rem;
+            font-weight: 500;
+            background: rgba(76, 201, 240, 0.1);
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid rgba(76, 201, 240, 0.3);
+            white-space: nowrap;
+        }
+
+        /* Bullet points */
+        #experience-window .exp-item ul {
+            margin: 15px 0 0 0;
+            padding-left: 22px;
+        }
+
+        #experience-window .exp-item li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+            color: #d0d0e7;
+            font-size: 0.98rem;
+            position: relative;
+            padding-left: 5px;
+        }
+
+        #experience-window .exp-item li::marker {
+            color: #4cc9f0;
+            font-size: 1.2em;
+        }
+
+        /* Repository links */
+        #experience-window .repo-link {
+            color: #72efdd;
+            text-decoration: none;
+            font-size: 0.85rem;
+            background: rgba(114, 239, 221, 0.1);
+            padding: 4px 10px;
+            border-radius: 6px;
+            margin-top: 6px;
+            display: inline-block;
+            border: 1px solid rgba(114, 239, 221, 0.3);
+            transition: all 0.2s ease;
+            word-break: break-all;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+        }
+
+        #experience-window .repo-link:hover {
+            background: rgba(114, 239, 221, 0.2);
+            text-decoration: none;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            #experience-window .window-content {
+                padding: 20px;
+            }
+            
+            #experience-window .exp-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            
+            #experience-window .exp-item .date {
+                align-self: flex-start;
+                margin-top: 5px;
+            }
+            
+            #experience-window .exp-container {
+                padding-left: 25px;
+                margin-left: 5px;
+            }
+            
+            #experience-window .exp-item::before {
+                left: -31px;
+                width: 16px;
+                height: 16px;
+            }
+        }
+        
+
+        /* List Styling */
+        .exp-item ul {
+                margin: 10px 0 0 0;
+            padding-left: 18px;
+            list-style-type: square;
+        }
+
+        .exp-item li {
+            margin-bottom: 6px;
+            line-height: 1.5;
+            color: #333;
+            font-size: 0.95rem;
+        }
+
+        .repo-link {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-size: 0.85rem;
+            word-break: break-all;
+        }
+
+        .repo-link:hover {
+            text-decoration: underline;
+        }
+
+        /* --- GALLERY GRID --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 15px;
+            padding: 15px;
+        }
+        .gallery-item {
+            border: 1px solid #999;
+            background: #fff;
+            padding: 5px;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+        }
+        .gallery-item img { width: 100%; height: 120px; object-fit: cover; }
+        .gallery-item p { font-size: 0.75rem; text-align: center; margin-top: 5px; }
+
+        /* --- BLOG SECTION WITH IFRAME --- */
+        .blog-layout {
+            display: flex;
+            height: 100%;
+            background: #000;
+        }
+        .blog-sidebar {
+            width: 180px;
+            background: #2d2d44;
+            padding: 10px;
+            border-right: 2px solid #00ff88;
+        }
+        .blog-category {
+            padding: 10px;
+            color: #ccc;
+            cursor: pointer;
+            border-bottom: 1px solid #3d3d54;
+        }
+        .blog-category.active {
+            color: #00ff88;
+            background: #3d3d54;
+        }
+        .blog-main {
+            flex: 1;
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+            background: #0c0d0d;
+        }
+        
+        .blog-post-list {
+            padding: 20px;
+            color: white;
+        }
+        .blog-item {
+            background: #2d2d44;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid #00ff88;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .blog-item h3 {
+            color: #00ff88;
+            margin-bottom: 8px;
+        }
+        .blog-post-item p {
+          color: #ccc;
+          font-family: Tahoma, "Segoe UI", Geneva, Verdana, sans-serif;
+          line-height: 25.6px;
+        }
+        .blog-item:hover {
+            background: #3d3d54;
+            transform: translateX(5px);
+        }
+        
+        /* IFRAME CONTAINER */
+        .blog-iframe {
+            width: 100%;
+            height: calc(100% - 40px);
+            border: none;
+            background: white;
+        }
+        .iframe-container {
+            width: 100%;
+            height: 100%;
+            display: none;
+            flex-direction: column;
+        }
+        .iframe-header {
+            background: #ece9d8;
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #999;
+            height: 40px;
+        }
+        .iframe-nav {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .iframe-nav button {
+            padding: 4px 12px;
+            background: linear-gradient(to bottom, #0997FF 0%, #0053EE 100%);
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: bold;
+        }
+        .iframe-nav button:hover {
+            opacity: 0.9;
+        }
+
+        /* --- THEMED WINDOWS --- */
+        /* About Me - Light Modern */
+        #about-window .window-content {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #2c3e50;
+            padding: 20px;
+        }
+        #about-window .window-content h2 {
+            color: #3498db;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+ 
+
+        /* Gallery - Pastel Aesthetic */
+        #gallery-window .window-content {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+        }
+        #gallery-window .gallery-item {
+            border: 2px solid #ff8c69;
+            background: #fff;
+            box-shadow: 3px 3px 10px rgba(0,0,0,0.15);
+            border-radius: 4px;
+        }
+
+        /* Terminal - Cyberpunk */
+        #terminal-window .window-content {
+            background: #0a0e27;
+            background-image: 
+                repeating-linear-gradient(0deg, rgba(255,0,255,0.05) 0px, transparent 1px, transparent 2px, rgba(255,0,255,0.05) 3px),
+                repeating-linear-gradient(90deg, rgba(0,255,255,0.05) 0px, transparent 1px, transparent 2px, rgba(0,255,255,0.05) 3px);
+        }
+        #terminal-window .terminal-prompt {
+            color: #00ffff;
+        }
+        #terminal-window .terminal-input {
+            color: #ffffff;
+        }
+        #terminal-window #ps-history {
+            color: #00ff88;
+        }
+        
+        .easter-egg-popup {
+            position: fixed;
+            border: 2px outset #0a7cd6;
+            border-radius: 4px;
+            background: #f0f0f0;
+            box-shadow: 3px 3px 10px rgba(0,0,0,0.3);
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            overflow: hidden;
+            z-index: 10000;
+        }
+
+        .easter-egg-popup button {
+            background: #c75050;
+            color: white;
+            border: 1px outset #d07070;
+            font-size: 10px;
+            cursor: pointer;
+            padding: 0 6px;
+            height: 18px;
+        }
+
+        .easter-egg-popup button:hover {
+            background: #d06060;
+        }
+
+        .easter-egg-popup button:active {
+            border-style: inset;
+        }
+
+        /* --- GAME & ANIMATION WINDOW STYLES --- */
+        .easter-egg-window {
+            animation: windowAppear 0.3s ease-out;
+        }
+
+        @keyframes windowAppear {
+            0% { 
+                opacity: 0; 
+                transform: scale(0.8) translateY(-20px); 
+            }
+            100% { 
+                opacity: 1; 
+                transform: scale(1) translateY(0); 
+            }
+        }
+
+        .window-close {
+            transition: background 0.2s;
+        }
+
+        .window-close:hover {
+            background: #d06060 !important;
+        }
+
+        /* Game specific styles */
+        #score-value {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        #matrix-speed-up:hover, #matrix-slow-down:hover, #matrix-color:hover,
+        #restart-btn:hover, #pause-btn:hover,
+        #add-particles:hover, #clear-particles:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        #restart-btn { background: #4CAF50; }
+        #pause-btn { background: #2196F3; }
+        #matrix-speed-up { background: #00C853; }
+        #matrix-slow-down { background: #FF9800; }
+        #matrix-color { background: #2196F3; }
+        #add-particles { background: #9C27B0; }
+        #clear-particles { background: #F44336; }
+
+        /* Snake game canvas */
+        /* Snake Game Button Styles */
+        .snake-game-btn {
+            background: linear-gradient(to bottom, #4CAF50 0%, #2E7D32 100%);
+            color: white;
+            border: 2px outset #66BB6A;
+            border-radius: 3px;
+            padding: 6px 15px;
+            font-weight: bold;
+            font-size: 12px;
+            cursor: pointer;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+            box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+            transition: all 0.2s;
+            min-width: 80px;
+        }
+
+        .snake-game-btn:hover {
+            background: linear-gradient(to bottom, #66BB6A 0%, #388E3C 100%);
+            transform: translateY(-1px);
+            box-shadow: 1px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .snake-game-btn:active {
+            border-style: inset;
+            transform: translateY(0);
+            background: linear-gradient(to bottom, #2E7D32 0%, #1B5E20 100%);
+        }
+
+        .snake-game-btn.pause-btn {
+            background: linear-gradient(to bottom, #2196F3 0%, #0D47A1 100%);
+            border-color: #64B5F6;
+        }
+
+        .snake-game-btn.pause-btn:hover {
+            background: linear-gradient(to bottom, #42A5F5 0%, #1565C0 100%);
+        }
+
+        .snake-game-btn.pause-btn:active {
+            background: linear-gradient(to bottom, #0D47A1 0%, #0A2E66 100%);
+        }
+
+        .game-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 8px 12px;
+            background: linear-gradient(to bottom, #ECE9D8 0%, #D4D0C8 100%);
+            border: 2px outset #ECE9D8;
+            border-radius: 3px;
+        }
+
+        .score-display {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            font-weight: bold;
+            font-size: 14px;
+            color: #0831D9;
+            text-shadow: 1px 1px 1px rgba(255,255,255,0.8);
+            padding: 4px 10px;
+            background: white;
+            border: 1px inset #999;
+            border-radius: 2px;
+            min-width: 100px;
+            text-align: center;
+        }
+        /* Add to your existing button styles */
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        button:disabled:hover {
+            transform: none;
+            box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+
+        /* Snake canvas glow effect on focus */
+        #snake-window:focus-within .snake-canvas {
+            box-shadow: 0 0 0 2px #2196F3;
+        }
+
+        /* Game status animations */
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        #game-status {
+            animation: pulse 2s infinite;
+        }
+
+        .score-value {
+            color: #4CAF50;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+      }
+        .snake-canvas {
+            image-rendering: pixelated;
+            image-rendering: crisp-edges;
+            display: block;
+            border: 2px solid #333;
+            background: #111;
+            min-width: 45%;
+            margin: 20px auto;
+        }
+
+        /* Particle canvas */
+        .particle-canvas {
+            display: block;
+            margin: 10px auto;
+            background: #111;
+            border-radius: 5px;
+        }
+
+        /* Matrix canvas */
+        .matrix-canvas {
+            display: block;
+            margin: 10px auto;
+            background: #000;
+            min-width: 45%;
+        }
+
+        @keyframes popupAppear {
+            0% { 
+                opacity: 0; 
+                transform: scale(0.8) translateY(-20px); 
+            }
+            100% { 
+                opacity: 1; 
+                transform: scale(1) translateY(0); 
+            }
+        }
+
+        /* Blog - Matrix/Hacker Theme */
+        #blog-window .window-content {
+            background: #0d0d0d;
+            padding: 0;
+        }
+
+        /* --- TASKBAR & START MENU --- */
+        .taskbar {
+            position: absolute; bottom: 0; width: 100%; height: 40px;
+            background: linear-gradient(to bottom, #245edc 0%, #3a7be0 5%, #0c59b9 50%, #0c59b9 100%);
+            display: flex; align-items: center; z-index: 9999;
+            border-top: 1px solid #1042af;
+            padding-left: 2px;
+        }
+        .start-btn {
+            background: linear-gradient(to bottom, #38ae38 0%, #229322 100%);
+            padding: 0 15px; height: 100%; color: white; display: flex; align-items: center;
+            font-weight: bold; font-style: italic; border-radius: 0 10px 10px 0; cursor: pointer;
+            font-size: 16px; border: none; box-shadow: inset 1px 1px 1px #88ff88, 2px 0 5px rgba(0,0,0,0.2);
+        }
+        .start-btn:hover { filter: brightness(1.1); }
+        .start-btn i { margin-right: 8px; font-size: 18px; }
+        
+        .taskbar-windows {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            padding: 0 10px;
+            gap: 2px;
+            overflow: hidden;
+        }
+
+        .taskbar-window-btn {
+            height: 30px;
+            min-width: 150px;
+            max-width: 200px;
+            background: linear-gradient(to bottom, #3a82f7 0%, #1c63e6 100%);
+            border: 1px solid #1042af;
+            border-radius: 3px;
+            color: white;
+            display: flex;
+            align-items: center;
+            padding: 0 8px;
+            cursor: pointer;
+            font-size: 12px;
+            user-select: none;
+            box-shadow: inset 1px 1px 1px rgba(255,255,255,0.3);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .taskbar-window-btn:hover { background: linear-gradient(to bottom, #4a92ff 0%, #2c73f6 100%); }
+        .taskbar-window-btn.active {
+            background: linear-gradient(to bottom, #1c63e6 0%, #1042af 100%);
+            box-shadow: inset 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        .taskbar-window-btn i { margin-right: 6px; }
+
+        .clock-tray {
+            margin-left: auto; color: white; padding: 0 15px; font-size: 12px;
+            background: linear-gradient(to bottom, #0975ea 0%, #0c59b9 100%);
+            height: 100%; display: flex; align-items: center;
+            border-left: 1px solid #08438e;
+            box-shadow: inset 2px 0 3px rgba(0,0,0,0.2);
+        }
+
+        /* Start Menu Styles */
+        #start-menu {
+            position: absolute;
+            bottom: 40px;
+            left: 0;
+            width: 300px;
+            background-color: #f1eee4;
+            border: 2px solid #0054e3;
+            border-bottom: none;
+            border-radius: 8px 8px 0 0;
+            box-shadow: 4px 4px 10px rgba(0,0,0,0.3);
+            display: none;
+            z-index: 10000;
+        }
+        .start-menu-header {
+            background: linear-gradient(to right, #245edc, #a6caf0);
+            color: white;
+            padding: 10px;
+            font-weight: bold;
+            font-size: 16px;
+            border-radius: 6px 6px 0 0;
+            display: flex; align-items: center;
+        }
+        .start-menu-header i { margin-right: 10px; font-size: 24px; }
+        .start-menu-body {
+            padding: 5px;
+            border-top: 1px solid #fff;
+            background: linear-gradient(to right, #f1eee4 0%, #e6e3d8 100%);
+        }
+        .start-menu-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 10px;
+            cursor: pointer;
+            color: #333;
+            font-size: 14px;
+            border: 1px solid transparent;
+        }
+        .start-menu-item:hover {
+            background-color: #316ac5;
+            color: white;
+            border: 1px solid #0054e3;
+        }
+        .start-menu-item i { margin-right: 15px; font-size: 18px; width: 20px; text-align: center; }
+        .start-menu-separator {
+            height: 1px;
+            background: #d4d0c8;
+            margin: 5px 2px;
+        }
+    </style>
+</head>
+<div id="shutdown-overlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:black; opacity:0; visibility:hidden; transition: opacity 2s ease; z-index:99999; pointer-events:none;"></div>
+<body>
+
+    <div class="desktop-bg"></div>
+
+    <div class="desktop">
+        <div class="desktop-icon" onclick="openWindow('about')">
+            <div class="icon-img"><i class="fas fa-user-circle" style="color: #a6caf0;"></i></div>
+            <div class="icon-label">About Me</div>
+        </div>
+        <div class="desktop-icon" onclick="openWindow('experience')">
+            <div class="icon-img"><i class="fas fa-briefcase" style="color: #8e44ad;"></i></div>
+            <div class="icon-label">Experience</div>
+        </div>
+        <div class="desktop-icon" onclick="openWindow('projects')">
+            <div class="icon-img"><i class="fas fa-folder-open" style="color: #f1c40f;"></i></div>
+            <div class="icon-label">My Projects</div>
+        </div>
+        <div class="desktop-icon" onclick="openWindow('blog')">
+            <div class="icon-img"><i class="fas fa-book" style="color: #00ff88;"></i></div>
+            <div class="icon-label">Blog</div>
+        </div>
+        <div class="desktop-icon" onclick="openWindow('gallery')">
+            <div class="icon-img"><i class="fas fa-images" style="color: #e67e22;"></i></div>
+            <div class="icon-label">Gallery</div>
+        </div>
+        <div class="desktop-icon" onclick="openWindow('terminal')">
+            <div class="icon-img"><i class="fas fa-terminal" style="color: #2ecc71;"></i></div>
+            <div class="icon-label">PowerShell</div>
+        </div>
+        <div class="desktop-icon" onclick="openWindow('skills')">
+            <div class="icon-img"><i class="fas fa-code" style="color: #9b59b6;"></i></div>
+            <div class="icon-label">Skills</div>
+        </div>
+        <div class="desktop-icon" onclick="openWindow('contact')">
+            <div class="icon-img"><i class="fas fa-envelope" style="color: #e74c3c;"></i></div>
+            <div class="icon-label">Contact</div>
+        </div>
+        <div class="desktop-icon" onclick="openWindow('snake')">
+            <div class="icon-img"><i class="fas fa-gamepad" style="color: #4CAF50;"></i></div>
+            <div class="icon-label">Snake Game</div>
+        </div>
+        <div class="desktop-icon" onclick="openWindow('matrix')">
+            <div class="icon-img"><i class="fas fa-terminal" style="color: #00ff00;"></i></div>
+            <div class="icon-label">Matrix</div>
+        </div>
+        <div class="desktop-icon" onclick="openWindow('particles')">
+            <div class="icon-img"><i class="fas fa-star" style="color: #ffeb3b;"></i></div>
+            <div class="icon-label">Particles</div>
+        </div>
+    </div>
+
+    <!-- Games Windows -->
+    <div id="snake-window" data-title="Snake Game" data-icon="fas fa-gamepad" class="window" style="width: 440px; height: 500px; top: 80px; left: 200px;">
+    <div class="window-header">
+        <span><i class="fas fa-gamepad"></i> Snake.exe</span>
+        <div class="window-controls">
+            <div class="window-control minimize" onclick="minimizeWindow('snake')"></div>
+            <div class="window-control maximize" onclick="toggleMaximize('snake')"></div>
+            <div class="window-control close" onclick="closeWindow('snake')"></div>
+        </div>
+    </div>
+    <div class="window-content" style="padding: 10px; background: #eee;">
+        <div class="game-controls">
+            <div class="score-display">
+                <i class="fas fa-star" style="color: #FF9800;"></i>
+                Score: <span id="snake-score" class="score-value">0</span>
+            </div>
+            <div class="button-group">
+                <button id="snake-pause-btn" class="snake-game-btn pause-btn" onclick="toggleSnakePause()">
+                    <i class="fas fa-pause"></i> Pause
+                </button>
+                <button class="snake-game-btn" onclick="startSnake()">
+                    <i class="fas fa-redo"></i> New Game
+                </button>
+            </div>
+        </div>
+        <canvas id="snake-canvas" width="400" height="360" class="snake-canvas"></canvas>
+        <div style="margin-top: 15px; padding: 10px; background: #f8f9fa; border: 1px solid #ddd; border-radius: 3px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span style="font-size: 12px; color: #666; font-weight: bold;">
+                    <i class="fas fa-keyboard"></i> Controls:
+                </span>
+                <span id="game-status" style="font-size: 11px; padding: 2px 8px; background: #4CAF50; color: white; border-radius: 10px;">
+                    <i class="fas fa-play"></i> Playing
+                </span>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 11px; color: #555;">
+                <div style="display: flex; align-items: center; gap: 5px;">
+                    <span style="background: #0831D9; color: white; padding: 2px 6px; border-radius: 3px;">↑ W</span>
+                    <span>Move Up</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 5px;">
+                    <span style="background: #0831D9; color: white; padding: 2px 6px; border-radius: 3px;">↓ S</span>
+                    <span>Move Down</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 5px;">
+                    <span style="background: #0831D9; color: white; padding: 2px 6px; border-radius: 3px;">← A</span>
+                    <span>Move Left</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 5px;">
+                    <span style="background: #0831D9; color: white; padding: 2px 6px; border-radius: 3px;">→ D</span>
+                    <span>Move Right</span>
+                </div>
+            </div>
+            <div style="margin-top: 8px; font-size: 10px; color: #888; text-align: center;">
+                <i class="fas fa-info-circle"></i> Press <strong>P</strong> or <strong>Space</strong> to pause/resume
+            </div>
+        </div>
+    </div>
+    <div class="resizer n"></div><div class="resizer s"></div><div class="resizer e"></div><div class="resizer w"></div>
+    <div class="resizer nw"></div><div class="resizer ne"></div><div class="resizer sw"></div><div class="resizer se"></div>
+</div>
+
+    <div id="matrix-window" class="window" data-title="Matrix" data-icon="fas fa-terminal" style="width: 500px; height: 400px; top: 120px; left: 250px;">
+        <div class="window-header">
+            <span><i class="fas fa-terminal"></i> Matrix.exe</span>
+            <div class="window-controls">
+                <div class="window-control minimize" onclick="minimizeWindow('matrix')"></div>
+                <div class="window-control maximize" onclick="toggleMaximize('matrix')"></div>
+                <div class="window-control close" onclick="closeWindow('matrix')"></div>
+            </div>
+        </div>
+        <div class="window-content" style="padding: 0; background: #000; overflow: hidden;">
+            <canvas id="matrix-canvas" width="500" height="370" class="matrix-canvas"></canvas>
+        </div>
+        <div class="resizer n"></div><div class="resizer s"></div><div class="resizer e"></div><div class="resizer w"></div>
+        <div class="resizer nw"></div><div class="resizer ne"></div><div class="resizer sw"></div><div class="resizer se"></div>
+    </div>
+
+    <div id="particles-window" class="window" data-title="Particles" data-icon="fas fa-star" style="width: 500px; height: 400px; top: 150px; left: 300px;">
+        <div class="window-header">
+            <span><i class="fas fa-star"></i> Particles.exe</span>
+            <div class="window-controls">
+                <div class="window-control minimize" onclick="minimizeWindow('particles')"></div>
+                <div class="window-control maximize" onclick="toggleMaximize('particles')"></div>
+                <div class="window-control close" onclick="closeWindow('particles')"></div>
+            </div>
+        </div>
+        <div class="window-content" style="padding: 0; background: #000; overflow: hidden;">
+            <canvas id="particles-canvas" width="500" height="370" class="particle-canvas"></canvas>
+        </div>
+        <div class="resizer n"></div><div class="resizer s"></div><div class="resizer e"></div><div class="resizer w"></div>
+        <div class="resizer nw"></div><div class="resizer ne"></div><div class="resizer sw"></div><div class="resizer se"></div>
+    </div>
+
+    <div id="about-window" class="window" data-title="About Me" data-icon="fas fa-user-circle" style="width: 450px; height: 300px; top: 40px; left: 40px;">
+        <div class="window-header">
+            <span><i class="fas fa-user-circle"></i> About Me.exe</span>
+            <div class="window-controls">
+                <div class="window-control minimize" onclick="minimizeWindow('about')"></div>
+                <div class="window-control maximize" onclick="toggleMaximize('about')"></div>
+                <div class="window-control close" onclick="closeWindow('about')"></div>
+            </div>
+        </div>
+        <div class="window-content">
+            <h2>Amir - Cybersecurity Enthusiast</h2>
+            <p>Welcome to my Windows XP portfolio! I specialise in cybersecurity CTF competitions, and red teaming skills.</p>
+            <p style="margin-top: 15px;">I am an 2nd year Undergraduate student at the University Of Cambridge and a keen CyberSecurity enthusiast (espeically when it comes to red teaming and offensive security).</p>
+        </div>
+        <div class="resizer n"></div><div class="resizer s"></div><div class="resizer e"></div><div class="resizer w"></div>
+        <div class="resizer nw"></div><div class="resizer ne"></div><div class="resizer sw"></div><div class="resizer se"></div>
+    </div>
+
+    <div id="experience-window" class="window" data-title="Experience" data-icon="fas fa-briefcase" style="width: 500px; height: 400px; top: 100px; left: 80px;">
+        <div class="window-header">
+            <span><i class="fas fa-briefcase"></i> Experience.exe</span>
+            <div class="window-controls">
+                <div class="window-control minimize" onclick="minimizeWindow('experience')"></div>
+                <div class="window-control maximize" onclick="toggleMaximize('experience')"></div>
+                <div class="window-control close" onclick="closeWindow('experience')"></div>
+            </div>
+        </div>
+        <div class="window-content">
+          <h2>Professional Experience</h2>
+          <div class="exp-container">
+              <div class="exp-item">
+                  <div class="exp-header">
+                      <h3>HSBC</h3>
+                      <span class="date">June 2025 - August 2025</span>
+                  </div>
+                  <h4>GCIO Cyber Intern</h4>
+                  <ul>
+                      <li>Contributed to SSH key management, covering key concepts (host keys, known hosts, user/root keys, config files, and authorized keys).</li>
+                      <li>Collaborated with data engineering to design bespoke reports, integrating discovery data into automated reporting workflows.</li>
+                      <li>Shadowed penetration testers and red teamers, gaining practical insight into offensive security methods.</li>
+                      <li>Completed Immersive Labs modules on reverse engineering and offensive security.</li>
+                      <li>Authored documentation and handover materials for all automated processes.</li>
+                  </ul>
+              </div>
+
+              <div class="exp-item">
+                  <div class="exp-header">
+                      <h3>Virgin Money</h3>
+                      <span class="date">Jun 2024 - Sep 2024</span>
+                  </div>
+                  <h4>CyberSecurity Intern</h4>
+                  <ul>
+                      <li>Created POCs (webcrawlers, brute-force) for domain detection and co-developed an open-source tool faster than current TIP. 
+                          <br><a class="repo-link" href="https://github.com/AmirH32/Domain_searcher">github.com/AmirH32/Domain_searcher</a></li>
+                      <li>Conducted trend analysis on phishing data, identifying 5 persistent and emerging threats.</li>
+                      <li>Drafted a product proposal for an EASM tool, discovering over 2,000 unmanaged assets.</li>
+                      <li>Won SOC team approval for Jupyter Notebook triaging; gained **Microsoft Sentinel Ninja** certification.</li>
+                      <li>Partnered with Business Ops to automate domain health checks, achieving a 2700% speed increase.
+                          <br><a class="repo-link" href="https://github.com/AmirH32/Email-Domain-health">github.com/AmirH32/Email-Domain-health</a></li>
+                  </ul>
+              </div>
+
+              <div class="exp-item">
+                  <div class="exp-header">
+                      <h3>Leicester Sudanese Association</h3>
+                      <span class="date">Sep 2020 - Apr 2023</span>
+                  </div>
+                  <h4>Volunteer Administrator & Finance Lead</h4>
+                  <ul>
+                      <li>Oversee administration and finances; secured **£10,000** in funding from The National Lottery.</li>
+                      <li>Automated the budgeting process to improve financial transparency and efficiency.</li>
+                  </ul>
+              </div>
+          </div>        
+        </div>
+        <div class="resizer n"></div><div class="resizer s"></div><div class="resizer e"></div><div class="resizer w"></div>
+        <div class="resizer nw"></div><div class="resizer ne"></div><div class="resizer sw"></div><div class="resizer se"></div>
+    </div>
+
+    <div id="projects-window" class="window ..." data-title="My Projects" data-icon="fas fa-folder-open" style="width: 680px; height: 500px; top: 60px; left: 120px;">
+        <div class="window-header">
+            <span><i class="fas fa-folder-open"></i> My Projects.exe</span>
+            <div class="window-controls">
+                <div class="window-control minimize" onclick="minimizeWindow('projects')"></div>
+                <div class="window-control maximize" onclick="toggleMaximize('projects')"></div>
+                <div class="window-control close" onclick="closeWindow('projects')"></div>
+            </div>
+        </div>
+        <div class="window-content">
+            <p style="margin-bottom: 25px; color: #7d4e1a; font-weight: bold; margin-top: 10px; margin-left: 5px">Here are some of the projects I've worked on. Each project represents different skills and technologies I've mastered.</p>
+
+            <!-- Driverless Humans -->
+            <div class="project-card">
+              <div class="project-content-wrapper">
+              <div class="project-banner" style="background-color: #9C27B0;"><img src="https://amirh32.github.io/portfolio/images/busapp.png"></div>
+                <div class="project-title">Driverless Humans</div>
+                <div class="project-desc">An app designed to improve accessibility for users with various disabilities in the context of autonomous buses.</div>
+                <div class="tag-container">
+                    <span class="project-tag">React Native</span><span class="project-tag">Flask</span>
+                </div>
+                <div class="btn-container">
+                    <button onclick="window.open('https://github.com/AmirH32/Driverless-Humans', '_blank')" class="project-btn">
+                        <i class="fab fa-github"></i> View Source
+                    </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Symplist -->
+            <div class="project-card">
+              <div class="project-content-wrapper">
+              <div class="project-banner" style="background-color: #9C27B0;"><img src="https://amirh32.github.io/portfolio/images/symplist.png"></div>
+                <div class="project-title">Driverless Humans</div>
+                <div class="project-desc">A healthcare webapp built using a python flask backend allowing for seamless use by both doctors and patients to access prescriptions, medical research, built-in messages, a treatment search engine, an illness search engine and most importantly book appointments</div>
+                <div class="tag-container">
+              <span class="project-tag">Javascript</span><span class="project-tag">Ajax</span><span class="project-tag">Python Flask</span>
+                </div>
+                <div class="btn-container">
+                    <button onclick="window.open('https://github.com/AmirH32/Symplist', '_blank')" class="project-btn">
+                        <i class="fab fa-github"></i> View Source
+                    </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bot Or Not -->
+            <div class="project-card">
+              <div class="project-content-wrapper">
+              <div class="project-banner" style="background-color: #9C27B0;"><img src="https://amirh32.github.io/portfolio/images/BotorNot.png"></div>
+                <div class="project-title">Bot Or Not</div>
+                <div class="project-desc">A 2D stealth game. Based in a world where AI has taken over and they are trying to root out all humans or you are a human who has escaped the AI prisons and are being held suspect with other innocent AI bots.</div>
+                <div class="tag-container">
+              <span class="project-tag">Javascript</span><span class="project-tag">Godot</span><span class="project-tag">Python Flask</span>
+                </div>
+                <div class="btn-container">
+                    <button onclick="window.open('https://github.com/AmirH32/Bot-Or-Not', '_blank')" class="project-btn">
+                        <i class="fab fa-github"></i> View Source
+                    </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Carbon Kredits -->
+            <div class="project-card">
+              <div class="project-content-wrapper">
+              <div class="project-banner" style="background-color: #9C27B0;"><img src="https://amirh32.github.io/portfolio/images/KK.png"></div>
+                <div class="project-title">Carbon Kredits</div>
+                <div class="project-desc">Carbon credit tokenisation using stellar's sorobon smart contracts, the stellar ecosystem.</div>
+                <div class="tag-container">
+              <span class="project-tag">Python</span><span class="project-tag">Rust</span><span class="project-tag">Javascript</span><span class="project-tag">Svelte</span>
+                </div>
+                <div class="btn-container">
+                    <button onclick="window.open('https://github.com/AmirH32/Carbon-Kredits', '_blank')" class="project-btn">
+                        <i class="fab fa-github"></i> View Source
+                    </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Astrocast -->
+            <div class="project-card">
+              <div class="project-content-wrapper">
+              <div class="project-banner" style="background-color: #9C27B0;"><img src="https://amirh32.github.io/portfolio/images/astro.png"></div>
+                <div class="project-title">Astrocast</div>
+                <div class="project-desc">A react app used to get a weather forecast in the area tailored towards stargazers, using metrics to show visibility.</div>
+                <div class="tag-container">
+              <span class="project-tag">React</span>
+                </div>
+                <div class="btn-container">
+                    <button onclick="window.open('https://github.com/AmirH32/Astrocast', '_blank')" class="project-btn">
+                        <i class="fab fa-github"></i> View Source
+                    </button>
+                </div>
+              </div>
+            </div>
+          
+            <!-- Crimson \& Adder -->
+            <div class="project-card">
+              <div class="project-content-wrapper">
+              <div class="project-banner" style="background-color: #9C27B0;"><img src="https://amirh32.github.io/portfolio/images/C&A.png"></div>
+                <div class="project-title">Local Password Manager</div>
+                <div class="project-desc">This is a local encrypted password manager that I created to be extremely efficient and fast for the user with autocorrect based on the account you want.</div>
+                <div class="tag-container">
+              <span class="project-tag">Python</span>
+                </div>
+                <div class="btn-container">
+                    <button onclick="window.open('https://github.com/AmirH32/Password-Manager', '_blank')" class="project-btn">
+                        <i class="fab fa-github"></i> View Source
+                    </button>
+                </div>
+              </div>
+            </div>
+          
+            <div class="project-card">
+              <div class="project-content-wrapper">
+            <div class="project-banner"><img src="https://raw.githubusercontent.com/AmirH32/portfolio/main/images/ctf_writeups.png" alt="CTF Wrietup Platform"></div>
+
+                <div class="project-title"><i class="fas fa-flag"></i> CTF Writeup Platform</div>
+
+                <div class="project-desc">A comprehensive collection of CTF writeups covering various categories including web exploitation, reverse engineering, cryptography, and forensics.</div>
+
+                <div class="tag-container">
+                    <span class="project-tag">Cybersecurity</span><span class="project-tag">CTF</span><span class="project-tag">Writeups</span><span class="project-tag">Education</span>
+                </div>
+
+                <div class="btn-container">
+              <button onclick="openWindow('blog')" class="project-btn"><i class="fas fa-book"></i>View Writeups</button>
+                </div>
+                </div>
+            </div>
+
+            <!-- Windows XP Portfolio Project -->
+            <div class="project-card">
+              <div class="project-content-wrapper">
+              <div class="project-banner" style="background-color: #9C27B0;"><img src="https://raw.githubusercontent.com/AmirH32/portfolio/main/images/vista.png"></div>
+                <div class="project-title">Interactive Portfolio Website</div>
+                <div class="project-desc">This Windows XP-themed portfolio website featuring draggable/resizable windows, interactive games (Snake, Matrix, Particles), and a functional PowerShell terminal with easter eggs.</div>
+                <div class="tag-container">
+                    <span class="project-tag">HTML/CSS</span><span class="project-tag">JavaScript</span><span class="project-tag">UI/UX</span><span class="project-tag">Interactive</span>
+                </div>
+                <div class="btn-container">
+                    <button onclick="window.open('https://github.com/AmirH32/amirh32.github.io', '_blank')" class="project-btn">
+                        <i class="fab fa-github"></i> View Source
+                    </button>
+                </div>
+              </div>
+            </div>
+
+
+            <!-- Regression projet -->
+            <div class="project-card">
+              <div class="project-content-wrapper">
+              <div class="project-banner" style="background-color: #9C27B0;"><img src="https://amirh32.github.io/portfolio/images/project.png"></div>
+                <div class="project-title">Regression & Food, Clothing image classification model</div>
+                <div class="project-desc">A bundle of 3 models: 3 classification models (one classifies clothing, the other classifies food, the last points on a graph), the other models is a regression model to predict trends.</div>
+                <div class="tag-container">
+              <span class="project-tag">Python</span><span class="project-tag">Pytorch</span>
+                </div>
+                <div class="btn-container">
+                    <button onclick="window.open('https://github.com/AmirH32/Machine-learning-project', '_blank')" class="project-btn">
+                        <i class="fab fa-github"></i> View Source
+                    </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Regression projet -->
+            <div class="project-card">
+              <div class="project-content-wrapper">
+              <div class="project-banner" style="background-color: #9C27B0;"><img src="https://amirh32.github.io/portfolio/images/project.png"></div>
+                <div class="project-title">Mail Server Health Checker Script</div>
+                <div class="project-desc">A python script that checks the health of a domain's mail server</div>
+                <div class="tag-container">
+              <span class="project-tag">Python</span>
+                </div>
+                <div class="btn-container">
+                    <button onclick="window.open('https://github.com/AmirH32/Mail-Server-Health-Cheker', '_blank')" class="project-btn">
+                        <i class="fab fa-github"></i> View Source
+                    </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        <div class="resizer n"></div><div class="resizer s"></div><div class="resizer e"></div><div class="resizer w"></div>
+        <div class="resizer nw"></div><div class="resizer ne"></div><div class="resizer sw"></div><div class="resizer se"></div>
+    </div>
+
+    <div id="blog-window" class="window" data-title="Blog" data-icon="fas fa-book" style="width: 900px; height: 600px; top: 50px; left: 150px;">
+        <div class="window-header">
+            <span><i class="fas fa-book"></i> Amir's Blog Explorer</span>
+            <div class="window-controls">
+                <div class="window-control minimize" onclick="minimizeWindow('blog')"></div>
+                <div class="window-control maximize" onclick="toggleMaximize('blog')"></div>
+                <div class="window-control close" onclick="closeWindow('blog')"></div>
+            </div>
+        </div>
+        <div class="window-content">
+            <div class="blog-layout">
+                <div class="blog-sidebar">
+                    <div class="blog-category active" onclick="showCategory('ctfWriteups')">CTF Writeups</div>
+                    <div class="blog-category" onclick="showCategory('ctfPractice')">CTF Practice</div>
+                    <div class="blog-category" onclick="showCategory('conferences')">Conferences</div>
+                </div>
+                <div class="blog-main">
+                    <div id="blog-list-view" class="blog-post-list"></div>
+                    
+                    <div id="blog-iframe-view" class="iframe-container">
+                        <div class="iframe-header">
+                            <div class="iframe-nav">
+                                <button onclick="closeIframe()">
+                                    <i class="fas fa-arrow-left"></i> Back to List
+                                </button>
+                                <button onclick="refreshIframe()">
+                                    <i class="fas fa-redo"></i> Refresh
+                                </button>
+                            </div>
+                            <span id="iframe-url-display" style="font-size:11px; color:#666; font-family: monospace;"></span>
+                        </div>
+                        <iframe id="blog-iframe" class="blog-iframe" src=""></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="resizer n"></div><div class="resizer s"></div><div class="resizer e"></div><div class="resizer w"></div>
+        <div class="resizer nw"></div><div class="resizer ne"></div><div class="resizer sw"></div><div class="resizer se"></div>
+    </div>
+
+    <div id="gallery-window" class="window" data-title="Gallery" data-icon="fas fa-images" style="width: 500px; height: 400px; top: 150px; left: 200px;">
+        <div class="window-header">
+            <span><i class="fas fa-images"></i> Gallery.exe</span>
+            <div class="window-controls">
+                <div class="window-control minimize" onclick="minimizeWindow('gallery')"></div>
+                <div class="window-control maximize" onclick="toggleMaximize('gallery')"></div>
+                <div class="window-control close" onclick="closeWindow('gallery')"></div>
+            </div>
+        </div>
+        <div class="window-content">
+            <div class="gallery-grid">
+                <div class="gallery-item"><img src="https://via.placeholder.com/150" loading="lazy "alt="1"><p>CTF Events</p></div>
+                <div class="gallery-item"><img src="https://via.placeholder.com/150" loading="lazy" alt="2"><p>Security Tools</p></div>
+                <div class="gallery-item"><img src="https://via.placeholder.com/150" loading="lazy" alt="3"><p>Conference Pics</p></div>
+            </div>
+        </div>
+        <div class="resizer n"></div><div class="resizer s"></div><div class="resizer e"></div><div class="resizer w"></div>
+        <div class="resizer nw"></div><div class="resizer ne"></div><div class="resizer sw"></div><div class="resizer se"></div>
+    </div>
+
+    <div id="terminal-window" class="window" data-title="PowerShell" data-icon="fas fa-terminal" style="width: 600px; height: 350px; top: 180px; left: 300px;">
+        <div class="window-header">
+            <span><i class="fas fa-terminal"></i> Windows PowerShell</span>
+            <div class="window-controls">
+                <div class="window-control minimize" onclick="minimizeWindow('terminal')"></div>
+                <div class="window-control maximize" onclick="toggleMaximize('terminal')"></div>
+                <div class="window-control close" onclick="closeWindow('terminal')"></div>
+            </div>
+        </div>
+        <div class="window-content terminal-content" onclick="document.getElementById('ps-input').focus()">
+            <div id="ps-history">Amir's PowerShell<br>Copyright (C) Amir. All rights reserved.<br><br>Type 'help' for commands.<br><br></div>
+            <div class="terminal-input-line">
+                <span class="terminal-prompt">PS C:\Users\Amir&gt;</span>
+                <input type="text" id="ps-input" class="terminal-input" spellcheck="false" autocomplete="off">
+            </div>
+        </div>
+        <div class="resizer n"></div><div class="resizer s"></div><div class="resizer e"></div><div class="resizer w"></div>
+        <div class="resizer nw"></div><div class="resizer ne"></div><div class="resizer sw"></div><div class="resizer se"></div>
+    </div>
+
+    <div id="skills-window" class="window" data-title="Skills" data-icon="fas fa-code" style="width: 400px; height: 350px; top: 120px; left: 400px;">
+        <div class="window-header">
+            <span><i class="fas fa-code"></i> Skills.exe</span>
+            <div class="window-controls">
+                <div class="window-control minimize" onclick="minimizeWindow('skills')"></div>
+                <div class="window-control maximize" onclick="toggleMaximize('skills')"></div>
+                <div class="window-control close" onclick="closeWindow('skills')"></div>
+            </div>
+        </div>
+        <div class="window-content" style="padding: 20px;">
+            <h3>Technical Skills</h3>
+            <ul style="margin-top: 15px; padding-left: 20px;">
+                <li>Cybersecurity & Penetration Testing</li>
+                <li>Digital Forensics & Incident Response</li>
+                <li>CTF Challenges & Writeups</li>
+                <li>Network Security Analysis</li>
+                <li>Web Application Security</li>
+                <li>Python & Bash Scripting</li>
+            </ul>
+        </div>
+        <div class="resizer n"></div><div class="resizer s"></div><div class="resizer e"></div><div class="resizer w"></div>
+        <div class="resizer nw"></div><div class="resizer ne"></div><div class="resizer sw"></div><div class="resizer se"></div>
+    </div>
+
+    <div id="contact-window" class="window" data-title="Contact" data-icon="fas fa-envelope" style="width: 450px; height: 350px; top: 200px; left: 100px;">
+      <div class="window-header">
+          <span><i class="fas fa-envelope"></i> Contact.exe</span>
+          <div class="window-controls">
+              <div class="window-control minimize" onclick="minimizeWindow('contact')"></div>
+              <div class="window-control maximize" onclick="toggleMaximize('contact')"></div>
+              <div class="window-control close" onclick="closeWindow('contact')"></div>
+          </div>
+      </div>
+      <div class="window-content" style="padding: 20px;">
+          <h3>Contact Information</h3>
+          <p style="margin-top: 15px;">
+              <strong>GitHub:</strong> <a href="https://github.com/amirh32" target="_blank">github.com/amirh32</a>
+          </p>
+          <p style="margin-top: 10px;">
+              <strong>CTF Writeups:</strong> Available in the Blog section
+          </p>
+          <p style="margin-top: 10px;">
+              <strong>Email:</strong> ah2344@ac.cam.uk
+          </p>
+          
+          <div style="margin-top: 20px; padding: 15px; background: #f0f0f0; border-left: 4px solid #0078d7; border-radius: 4px;">
+              <strong><i class="fas fa-key" style="color: #0078d7;"></i> PGP Public Key</strong>
+              <p style="margin-top: 8px; font-size: 13px; color: #555;">
+                  For encrypted communications, you can use my PGP key.
+              </p>
+              <button onclick="showPGPKey()" style="margin-top: 10px; padding: 6px 15px; background: #0078d7; color: white; border: none; border-radius: 3px; cursor: pointer; font-weight: bold;">
+                  <i class="fas fa-eye"></i> View PGP Key
+              </button>
+              <button onclick="copyPGPKey(this)" style="margin-top: 10px; margin-left: 8px; padding: 6px 15px; background: #28a745; color: white; border: none; border-radius: 3px; cursor: pointer; font-weight: bold;">
+                  <i class="fas fa-copy"></i> Copy Key
+              </button>
+          </div>
+      </div>
+      <div class="resizer n"></div><div class="resizer s"></div><div class="resizer e"></div><div class="resizer w"></div>
+      <div class="resizer nw"></div><div class="resizer ne"></div><div class="resizer sw"></div><div class="resizer se"></div>
+    </div>
+
+    <div id="start-menu">
+        <div class="start-menu-header">
+            <i class="fab fa-windows"></i> Windows XP Portfolio
+        </div>
+        <div class="start-menu-body">
+            <div class="start-menu-item" onclick="openWindow('about')">
+                <i class="fas fa-user-circle" style="color: #a6caf0;"></i> About Me
+            </div>
+            <div class="start-menu-item" onclick="openWindow('experience')">
+                <i class="fas fa-briefcase" style="color: #8e44ad;"></i> Experience
+            </div>
+            <div class="start-menu-item" onclick="openWindow('projects')">
+                <i class="fas fa-folder-open" style="color: #f1c40f;"></i> My Projects
+            </div>
+            <div class="start-menu-item" onclick="openWindow('blog')">
+                <i class="fas fa-book" style="color: #00ff88;"></i> Blog (CTF Writeups)
+            </div>
+            <div class="start-menu-item" onclick="openWindow('gallery')">
+                <i class="fas fa-images" style="color: #e67e22;"></i> Gallery
+            </div>
+            <div class="start-menu-item" onclick="openWindow('skills')">
+                <i class="fas fa-code" style="color: #9b59b6;"></i> Skills
+            </div>
+            <div class="start-menu-item" onclick="openWindow('terminal')">
+                <i class="fas fa-terminal" style="color: #2ecc71;"></i> PowerShell Terminal
+            </div>
+            <div class="start-menu-item" onclick="openWindow('contact')">
+                <i class="fas fa-envelope" style="color: #e74c3c;"></i> Contact
+            </div>
+            <div class="start-menu-item" onclick="openWindow('snake')"><i class="fas fa-gamepad"></i> Snake Game</div>
+            <div class="start-menu-item" onclick="openWindow('matrix')"><i class="fas fa-terminal" style="color: #00ff00;"></i> Matrix </div>
+            <div class="start-menu-item" onclick="openWindow('particles')"><i class="fas fa-star" style="color: #ffeb3b;"></i> Particles </div>
+            <div class="start-menu-separator"></div>
+            <div class="start-menu-item" onclick="shutdownSystem()">
+                <i class="fas fa-power-off" style="color: #e74c3c;"></i> Shut Down...
+            </div>
+        </div>
+    </div>
+
+    <div class="taskbar">
+        <button class="start-btn" onclick="toggleStartMenu()"><i class="fab fa-windows"></i>Start</button>
+        <div class="taskbar-windows" id="taskbar-windows"></div>
+        <div class="clock-tray" id="clock">12:00 PM</div>
+    </div>
+
+    <script>
+        let highestZ = 100;
+        let blogInitialised = false;
+        let activeWindowId = null;
+        let activeIntervals = {};
+        let zIndexCounter = 10000;
+        const taskbarWindows = document.getElementById('taskbar-windows');
+        const startMenu = document.getElementById('start-menu');
+
+        function shutdownSystem() {
+            const overlay = document.getElementById('shutdown-overlay');
+            overlay.style.visibility = 'visible';
+            overlay.style.opacity = '1';
+            
+            // Optional: Add the shutdown sound here if you have the file
+            // new Audio('shutdown_sound.mp3').play();
+
+            setTimeout(() => {
+                // Try to close the tab, otherwise redirect to a blank page
+                if (!window.close()) {
+                    window.location.href = 'about:blank';
+                }
+            }, 2500); // Wait for the fade to finish
+        }
+
+        // --- MINIMIZE WINDOW FUNCTION ---
+        function minimizeWindow(id) {
+            const win = document.getElementById(id + '-window');
+            win.style.display = 'none';
+            
+            // Update taskbar button state
+            const taskbarBtn = document.getElementById('taskbar-btn-' + id);
+            if (taskbarBtn) {
+                taskbarBtn.classList.remove('active');
+            }
+            
+            // If this was the active window, clear activeWindowId
+            if (activeWindowId === id) {
+                activeWindowId = null;
+            }
+        }
+        // --- BLOG DATA ---
+        const blogData = {
+            ctfWriteups: [
+                {
+                    title: "PicoCTF 2025 (Complete Site)",
+                    url: "https://amirh32.github.io/portfolio/ctfs/pico-ctf-2025/",
+                    type: "external",
+                    date: "2025-04-7",
+                    description: "Complete writeups and solutions for PicoCTF 2025 challenges"
+                }
+            ],
+            ctfPractice: [
+                {
+                    title: "PICO Network Forensics",
+                    url: "https://amirh32.github.io/portfolio/misc/pico-network-forensics/",
+                    type: "external",
+                    date: "2025-04-20",
+                    description: "Network forensic challenges from PicoCTF"
+                },
+                {
+                    title: "PICO Linux Challenges",
+                    url: "https://amirh32.github.io/portfolio/misc/pico-linux-challs/",
+                    type: "external",
+                    date: "2025-04-20",
+                    description: "Linux-based challenges and solutions for PicoCTF"
+                },
+                {
+                    title: "PICO Disk Forensics",
+                    url: "https://amirh32.github.io/portfolio/misc/pico-disk-forensics/",
+                    type: "external",
+                    date: "2025-04-20",
+                    description: "Disk forensic analysis and techniques for PicoCTF"
+                }
+            ],
+            conferences: [
+                {
+                    title: "Conference OFTW3 Notes",
+                    url: "https://amirh32.github.io/portfolio/conferences/oftw3/",
+                    type: "external",
+                    date: "2025-09-30",
+                    description: "Notes and insights from OFTW 3.0 conference"
+                }
+            ]
+        };
+
+        // --- BLOG FUNCTIONS ---
+        function formatDate(dateStr) {
+            if (!dateStr) return '';
+            return new Date(dateStr).toLocaleDateString(undefined, {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+        function showCategory(cat) {
+          const listContainer = document.getElementById('blog-list-view');
+          const iframeView = document.getElementById('blog-iframe-view');
+          listContainer.style.display = 'block';
+          iframeView.style.display = 'none';
+
+          // Remove active class from all categories
+          document.querySelectorAll('.blog-category').forEach(el => el.classList.remove('active'));
+      
+          // Find and highlight the active category
+          document.querySelectorAll('.blog-category').forEach(el => {
+              const onclickAttr = el.getAttribute('onclick');
+              // Check if this element's onclick matches the category
+              if (onclickAttr && onclickAttr.includes(`'${cat}'`)) {
+                  el.classList.add('active');
+              }
+          });
+
+          let html = '';
+          if (blogData[cat]) {
+              blogData[cat].forEach((post, index) => {
+                  html += `<div class="blog-item" onclick="openPost('${cat}', ${index})">
+                              <h3 style="margin-bottom: 5px;">${post.title}</h3>
+                              <p style="font-size:11px; color:#888; margin-bottom: 4px;">
+                                  ${post.date ? `📅 ${formatDate(post.date)}` : ''}
+                              </p>
+                              <p style="font-size:12px; color:#aaa; margin-bottom: 5px;">
+                                  ${post.type === 'external' ? '🌐 External Link' : '📄 Local Content'}
+                              </p>
+                              <p style="font-size:11px; color:#ccc;">${post.description || post.summary || ''}</p>
+                          </div>`;
+              });
+          }
+          listContainer.innerHTML = html;
+        }
+        function openPost(cat, index) {
+            const post = blogData[cat][index];
+            const listContainer = document.getElementById('blog-list-view');
+            const iframeView = document.getElementById('blog-iframe-view');
+            const iframe = document.getElementById('blog-iframe');
+
+            if (post.type === 'external') {
+                listContainer.style.display = 'none';
+                iframeView.style.display = 'flex';
+                iframe.src = post.url;
+                document.getElementById('iframe-url-display').innerText = post.url;
+            } else {
+                showModal(post.title, post.summary || post.description || 'No content available.');
+            }
+        }
+
+        function closeIframe() {
+            document.getElementById('blog-list-view').style.display = 'block';
+            document.getElementById('blog-iframe-view').style.display = 'none';
+            document.getElementById('blog-iframe').src = "";
+            document.getElementById('iframe-url-display').innerText = "";
+        }
+
+        function refreshIframe() {
+            const iframe = document.getElementById('blog-iframe');
+            if (iframe.src) iframe.src = iframe.src;
+        }
+
+        function showModal(title, content) {
+            const modal = document.createElement('div');
+            modal.style.cssText = `position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #ece9d8; padding: 20px; border: 2px solid #0831D9; box-shadow: 0 0 0 3px #4C8BF5, 0 0 20px rgba(0,0,0,0.5); z-index: 10000; min-width: 300px; max-width: 500px;`;
+            modal.innerHTML = `<div style="margin-bottom: 15px; font-weight: bold; color: #0053EE;">${title}</div><div style="margin-bottom: 20px; font-size: 13px; line-height: 1.5;">${content}</div><button onclick="this.parentElement.remove()" style="padding: 5px 15px; background: #0997FF; color: white; border: none; cursor: pointer;">Close</button>`;
+            document.body.appendChild(modal);
+        }
+
+        // --- CORE WINDOW FUNCTIONS ---
+        function openWindow(id) {
+            const win = document.getElementById(id + '-window');
+            if (!win) return;
+            const wasHidden = win.style.display === 'none' || win.style.display === '';
+            win.style.display = 'block';
+            bringToFront(win);
+            activeWindowId = id;
+            createTaskbarButton(id, win.dataset.title, win.dataset.icon);
+            updateTaskbarButtonState();
+            startMenu.style.display = 'none';
+            if (id === 'blog' && !blogInitialised) {
+              showCategory('ctfWriteups');
+              blogInitialised = true;
+            }
+
+             // Feature Logic
+            if (id === 'snake') {
+                if (!activeIntervals.snake) {
+                    startSnake(); // This initializes snake, food, etc.
+                } else {
+                    drawSnakeGame();
+                    updatePauseButton();
+                    updateGameStatus();
+                }
+            }
+            if (id === 'matrix' && !activeIntervals.matrix) startMatrix();
+            if (id === 'particles' && !activeIntervals.particles) startParticles();
+            if (id === 'terminal') {
+                setTimeout(() => document.getElementById('ps-input')?.focus(), 100);
+            }   
+        }
+
+        function closeWindow(id) {
+          const win = document.getElementById(id + '-window');
+          if (!win) return;
+
+          win.style.display = 'none';
+
+          if (id === 'blog') {
+              blogInitialised = false; // 🔄 allow reset next open
+          }
+
+          const btn = document.getElementById('taskbar-btn-' + id);
+          if (btn) btn.remove();
+
+          activeWindowId = null;
+          updateTaskbarButtonState();
+        }
+
+        function bringToFront(win) {
+            highestZ++;
+            win.style.zIndex = highestZ;
+        }
+
+        // --- MAXIMIZE LOGIC ---
+        function toggleMaximize(id) {
+            const win = document.getElementById(id + '-window');
+            if (win.dataset.maximized === "true") {
+                win.style.width = win.dataset.oldWidth;
+                win.style.height = win.dataset.oldHeight;
+                win.style.top = win.dataset.oldTop;
+                win.style.left = win.dataset.oldLeft;
+                win.dataset.maximized = "false";
+            } else {
+                win.dataset.oldWidth = win.style.width;
+                win.dataset.oldHeight = win.style.height;
+                win.dataset.oldTop = win.style.top;
+                win.dataset.oldLeft = win.style.left;
+                win.style.width = "100%";
+                win.style.height = "calc(100vh - 40px)";
+                win.style.top = "0";
+                win.style.left = "0";
+                win.dataset.maximized = "true";
+            }
+        }
+
+        // --- TASKBAR FUNCTIONS ---
+        function createTaskbarButton(id, title, iconClass) {
+            if (document.getElementById('taskbar-btn-' + id)) return;
+            const btn = document.createElement('div');
+            btn.id = 'taskbar-btn-' + id;
+            btn.className = 'taskbar-window-btn';
+            btn.innerHTML = `<i class="${iconClass}"></i> ${title}`;
+            btn.onclick = () => onTaskbarButtonClick(id);
+            taskbarWindows.appendChild(btn);
+        }
+
+        function onTaskbarButtonClick(id) {
+            const win = document.getElementById(id + '-window');
+            if (win.style.display === 'none') {
+                win.style.display = 'block';
+                bringToFront(win);
+                activeWindowId = id;
+            } else if (activeWindowId === id) {
+                win.style.display = 'none';
+                activeWindowId = null;
+            } else {
+                bringToFront(win);
+                activeWindowId = id;
+            }
+            updateTaskbarButtonState();
+        }
+
+        function updateTaskbarButtonState() {
+            document.querySelectorAll('.taskbar-window-btn').forEach(btn => btn.classList.remove('active'));
+            if (activeWindowId) {
+                const activeBtn = document.getElementById('taskbar-btn-' + activeWindowId);
+                if (activeBtn) activeBtn.classList.add('active');
+            }
+        }
+
+        // --- SNAKE GAME LOGIC ---
+              let snake, food, direction, nextDirection, score;
+              let snakePaused = false;
+              let snakeGameOver = false;
+              const snakeCanvas = document.getElementById('snake-canvas');
+              const sCtx = snakeCanvas.getContext('2d');
+
+              function startSnake() {
+                  if (activeIntervals.snake) clearInterval(activeIntervals.snake);
+                  
+                  snake = [
+                      {x: 200, y: 180},
+                      {x: 190, y: 180},
+                      {x: 180, y: 180},
+                      {x: 170, y: 180}
+                  ];
+                  direction = 'RIGHT';
+                  nextDirection = 'RIGHT';
+                  score = 0;
+                  snakePaused = false;
+                  snakeGameOver = false;
+                  
+                  document.getElementById('snake-score').innerText = score;
+                  updatePauseButton();
+                  updateGameStatus();
+                  
+                  spawnFood();
+                  drawSnakeGame(); // Draw initial state
+                  
+                  activeIntervals.snake = setInterval(updateSnake, 120); // Slightly slower for better control
+              }
+
+              function spawnFood() {
+                  let newFood;
+                  let foodOnSnake;
+                  
+                  do {
+                      foodOnSnake = false;
+                      newFood = {
+                          x: Math.floor(Math.random() * 40) * 10,
+                          y: Math.floor(Math.random() * 36) * 10
+                      };
+                      
+                      // Check if food would spawn on snake
+                      for (let segment of snake) {
+                          if (segment.x === newFood.x && segment.y === newFood.y) {
+                              foodOnSnake = true;
+                              break;
+                          }
+                      }
+                  } while (foodOnSnake);
+                  
+                  food = newFood;
+              }
+
+              function updateSnake() {
+                  if (snakePaused || snakeGameOver) return;
+                  if (activeWindowId !== 'snake' && document.getElementById('snake-window').style.display === 'none') return;
+                  
+                  direction = nextDirection;
+                  const head = {x: snake[0].x, y: snake[0].y};
+                  
+                  if (direction === 'LEFT') head.x -= 10;
+                  if (direction === 'RIGHT') head.x += 10;
+                  if (direction === 'UP') head.y -= 10;
+                  if (direction === 'DOWN') head.y += 10;
+
+                  // Wall collision
+                  if (head.x < 0 || head.x >= 400 || head.y < 0 || head.y >= 360) {
+                      gameOver();
+                      return;
+                  }
+
+                  // Self collision
+                  for (let i = 0; i < snake.length; i++) {
+                      if (snake[i].x === head.x && snake[i].y === head.y) {
+                          gameOver();
+                          return;
+                      }
+                  }
+
+                  snake.unshift(head);
+                  
+                  // Food collision
+                  if (head.x === food.x && head.y === food.y) {
+                      score += 10;
+                      document.getElementById('snake-score').innerText = score;
+                      spawnFood();
+                      
+                      // Speed up slightly every 50 points
+                      if (score % 50 === 0 && score > 0) {
+                          clearInterval(activeIntervals.snake);
+                          const newSpeed = Math.max(50, 120 - Math.floor(score / 50) * 10);
+                          activeIntervals.snake = setInterval(updateSnake, newSpeed);
+                      }
+                  } else {
+                      snake.pop();
+                  }
+
+                  drawSnakeGame();
+              }
+
+              function drawSnakeGame() {
+                  // Clear canvas
+                  sCtx.fillStyle = '#111';
+                  sCtx.fillRect(0, 0, 400, 360);
+                  
+                  // Draw grid (subtle)
+                  sCtx.strokeStyle = '#222';
+                  sCtx.lineWidth = 0.5;
+                  for (let x = 0; x <= 400; x += 10) {
+                      sCtx.beginPath();
+                      sCtx.moveTo(x, 0);
+                      sCtx.lineTo(x, 360);
+                      sCtx.stroke();
+                  }
+                  for (let y = 0; y <= 360; y += 10) {
+                      sCtx.beginPath();
+                      sCtx.moveTo(0, y);
+                      sCtx.lineTo(400, y);
+                      sCtx.stroke();
+                  }
+                  
+                  // Draw food with gradient
+                  const foodGradient = sCtx.createRadialGradient(
+                      food.x + 5, food.y + 5, 0,
+                      food.x + 5, food.y + 5, 7
+                  );
+                  foodGradient.addColorStop(0, '#FF5252');
+                  foodGradient.addColorStop(1, '#D32F2F');
+                  sCtx.fillStyle = foodGradient;
+                  sCtx.beginPath();
+                  sCtx.arc(food.x + 5, food.y + 5, 4.5, 0, Math.PI * 2);
+                  sCtx.fill();
+                  
+                  // Draw snake with gradient
+                  snake.forEach((seg, index) => {
+                      const gradient = sCtx.createRadialGradient(
+                          seg.x + 5, seg.y + 5, 0,
+                          seg.x + 5, seg.y + 5, 6
+                      );
+                      
+                      if (index === 0) {
+                          // Head
+                          gradient.addColorStop(0, '#81C784');
+                          gradient.addColorStop(1, '#388E3C');
+                      } else {
+                          // Body
+                          const intensity = 1 - (index / snake.length) * 0.5;
+                          gradient.addColorStop(0, `rgb(${76 + index * 2}, ${175 - index}, ${80 - index})`);
+                          gradient.addColorStop(1, `rgb(${46 + index}, ${125 - index * 2}, ${50 - index})`);
+                      }
+                      
+                      sCtx.fillStyle = gradient;
+                      sCtx.fillRect(seg.x, seg.y, 9, 9);
+                      
+                  // Snake border
+                  sCtx.strokeStyle = '#2E7D32';
+                  sCtx.lineWidth = 1;
+                  sCtx.strokeRect(seg.x, seg.y, 9, 9);
+              });
+              
+              // Draw paused overlay if paused
+              if (snakePaused) {
+                  sCtx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+                  sCtx.fillRect(0, 0, 400, 360);
+                  
+                  sCtx.fillStyle = 'white';
+                  sCtx.font = 'bold 24px Arial';
+                  sCtx.textAlign = 'center';
+                  sCtx.fillText('PAUSED', 200, 160);
+                  
+                  sCtx.font = '14px Arial';
+                  sCtx.fillText('Press P or Space to resume', 200, 190);
+              }
+          }
+
+          function gameOver() {
+              clearInterval(activeIntervals.snake);
+              delete activeIntervals.snake;
+              snakeGameOver = true;
+              
+              sCtx.fillStyle = 'rgba(0, 0, 0, 0.8)';
+              sCtx.fillRect(0, 0, 400, 360);
+              
+              sCtx.fillStyle = '#FF5252';
+              sCtx.font = 'bold 30px Arial';
+              sCtx.textAlign = 'center';
+              sCtx.fillText('GAME OVER', 200, 150);
+              
+              sCtx.fillStyle = 'white';
+              sCtx.font = 'bold 20px Arial';
+              sCtx.fillText(`Score: ${score}`, 200, 190);
+              
+              sCtx.font = '16px Arial';
+              sCtx.fillText('Press New Game to play again', 200, 220);
+              
+              updateGameStatus();
+          }
+
+          function toggleSnakePause() {
+              if (snakeGameOver) return;
+              
+              snakePaused = !snakePaused;
+              updatePauseButton();
+              updateGameStatus();
+              
+              if (!snakePaused) {
+                  // Redraw to remove pause overlay
+                  drawSnakeGame();
+              } else {
+                  // Draw pause overlay
+                  drawSnakeGame();
+              }
+          }
+
+          function updatePauseButton() {
+              const pauseBtn = document.getElementById('snake-pause-btn');
+              if (snakeGameOver) {
+                  pauseBtn.innerHTML = '<i class="fas fa-ban"></i> Game Over';
+                  pauseBtn.disabled = true;
+                  pauseBtn.style.opacity = '0.6';
+              } else if (snakePaused) {
+                  pauseBtn.innerHTML = '<i class="fas fa-play"></i> Resume';
+                  pauseBtn.classList.remove('pause-btn');
+                  pauseBtn.style.background = 'linear-gradient(to bottom, #4CAF50 0%, #2E7D32 100%)';
+                  pauseBtn.style.borderColor = '#66BB6A';
+              } else {
+                  pauseBtn.innerHTML = '<i class="fas fa-pause"></i> Pause';
+                  pauseBtn.classList.add('pause-btn');
+                  pauseBtn.disabled = false;
+                  pauseBtn.style.opacity = '1';
+              }
+          }
+
+          function updateGameStatus() {
+              const statusEl = document.getElementById('game-status');
+              if (snakeGameOver) {
+                  statusEl.innerHTML = '<i class="fas fa-skull-crossbones"></i> Game Over';
+                  statusEl.style.background = '#F44336';
+              } else if (snakePaused) {
+                  statusEl.innerHTML = '<i class="fas fa-pause"></i> Paused';
+                  statusEl.style.background = '#FF9800';
+              } else {
+                  statusEl.innerHTML = '<i class="fas fa-play"></i> Playing';
+                  statusEl.style.background = '#4CAF50';
+              }
+          }
+
+          // Global Key Listener for game (filtered by active window)
+          window.addEventListener('keydown', (e) => {
+            if (activeWindowId !== 'snake') return;
+            
+            // Game controls
+            if (!snakePaused && !snakeGameOver) {
+                // Prevent default for all game keys
+                if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'w', 'W', 'a', 'A', 's', 'S', 'd', 'D', ' ', 'p', 'P'].includes(e.key)) {
+                    e.preventDefault();
+                }
+                
+                // Arrow keys
+                if (e.key === 'ArrowLeft' && direction !== 'RIGHT') nextDirection = 'LEFT';
+                if (e.key === 'ArrowRight' && direction !== 'LEFT') nextDirection = 'RIGHT';
+                if (e.key === 'ArrowUp' && direction !== 'DOWN') nextDirection = 'UP';
+                if (e.key === 'ArrowDown' && direction !== 'UP') nextDirection = 'DOWN';
+                
+                // WASD keys
+                if ((e.key === 'a' || e.key === 'A') && direction !== 'RIGHT') nextDirection = 'LEFT';
+                if ((e.key === 'd' || e.key === 'D') && direction !== 'LEFT') nextDirection = 'RIGHT';
+                if ((e.key === 'w' || e.key === 'W') && direction !== 'DOWN') nextDirection = 'UP';
+                if ((e.key === 's' || e.key === 'S') && direction !== 'UP') nextDirection = 'DOWN';
+            }
+            
+            // Pause controls
+            if (e.key === 'p' || e.key === 'P' || e.key === ' ') {
+                e.preventDefault();
+                if (!snakeGameOver) {
+                    toggleSnakePause();
+                }
+            }
+        });
+        // --- MATRIX LOGIC ---
+        const matrixCanvas = document.getElementById('matrix-canvas');
+        const mCtx = matrixCanvas.getContext('2d');
+        const mChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$#@%&*";
+        const mDrops = Array(50).fill(1);
+
+        function startMatrix() {
+            activeIntervals.matrix = setInterval(() => {
+                mCtx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+                mCtx.fillRect(0, 0, 500, 400);
+                mCtx.fillStyle = '#0F0';
+                mCtx.font = '15px monospace';
+                mDrops.forEach((y, i) => {
+                    const text = mChars[Math.floor(Math.random() * mChars.length)];
+                    mCtx.fillText(text, i * 15, y * 15);
+                    if (y * 15 > 400 && Math.random() > 0.975) mDrops[i] = 0;
+                    mDrops[i]++;
+                });
+            }, 50);
+        }
+
+        // --- PARTICLES LOGIC ---
+        const pCanvas = document.getElementById('particles-canvas');
+        const pCtx = pCanvas.getContext('2d');
+        let particles = [];
+        class Particle {
+            constructor() {
+                this.x = Math.random() * 500; this.y = Math.random() * 400;
+                this.vx = (Math.random() - 0.5) * 2; this.vy = (Math.random() - 0.5) * 2;
+            }
+            update() {
+                this.x += this.vx; this.y += this.vy;
+                if (this.x < 0 || this.x > 500) this.vx *= -1;
+                if (this.y < 0 || this.y > 400) this.vy *= -1;
+            }
+        }
+        function startParticles() {
+            particles = Array(50).fill().map(() => new Particle());
+            function animate() {
+                if (document.getElementById('particles-window').style.display === 'none') {
+                    delete activeIntervals.particles;
+                    return;
+                }
+                pCtx.fillStyle = 'black'; pCtx.fillRect(0, 0, 500, 400);
+                particles.forEach((p, i) => {
+                    p.update();
+                    pCtx.fillStyle = 'white'; pCtx.beginPath(); pCtx.arc(p.x, p.y, 2, 0, Math.PI * 2); pCtx.fill();
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dist = Math.hypot(p.x - particles[j].x, p.y - particles[j].y);
+                        if (dist < 80) {
+                            pCtx.strokeStyle = `rgba(255,255,255,${1 - dist / 80})`;
+                            pCtx.beginPath(); pCtx.moveTo(p.x, p.y); pCtx.lineTo(particles[j].x, particles[j].y); pCtx.stroke();
+                        }
+                    }
+                });
+                activeIntervals.particles = requestAnimationFrame(animate);
+            }
+            animate();
+        }
+
+
+        // --- TERMINAL FUNCTIONS ---
+        const psInput = document.getElementById('ps-input');
+        const psHistory = document.getElementById('ps-history');
+        function addTerminalOutput(text) {
+            const line = document.createElement('div');
+            line.innerHTML = text;
+            psHistory.appendChild(line);
+            psHistory.scrollTop = psHistory.scrollHeight;
+        }
+
+        function createEasterEggPopup(message) {
+          // Create popup window
+          const popup = document.createElement('div');
+          popup.className = 'easter-egg-popup';
+          
+          // Random position on screen (avoid edges)
+          const x = Math.random() * (window.innerWidth - 300) + 50;
+          const y = Math.random() * (window.innerHeight - 200) + 50;
+          
+          // Style the popup to look like a Windows XP window
+          popup.style.cssText = `
+              position: fixed;
+              left: ${x}px;
+              top: ${y}px;
+              width: 250px;
+              background: linear-gradient(to bottom, #0996f3 0%, #0670c6 100%);
+              border: 2px outset #0a7cd6;
+              border-radius: 4px;
+              box-shadow: 3px 3px 10px rgba(0,0,0,0.3);
+              z-index: ${zIndexCounter++};
+              font-family: 'Segoe UI', Tahoma, sans-serif;
+              overflow: hidden;
+              animation: popupAppear 0.3s ease-out;
+          `;
+          
+          // Window title bar
+          const titleBar = document.createElement('div');
+          titleBar.style.cssText = `
+              background: linear-gradient(to right, #0a7cd6 0%, #065fad 100%);
+              color: white;
+              padding: 4px 8px;
+              font-size: 12px;
+              font-weight: bold;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              cursor: move;
+              user-select: none;
+          `;
+          titleBar.innerHTML = `
+              <span>🎉 Easter Egg!</span>
+              <button onclick="this.parentElement.parentElement.remove()" style="background: #c75050; color: white; border: 1px outset #d07070; font-size: 10px; cursor: pointer; padding: 0 4px;">X</button>
+          `;
+          
+          // Window content
+          const content = document.createElement('div');
+          content.style.cssText = `
+              background: #f0f0f0;
+              padding: 16px;
+              font-size: 13px;
+              line-height: 1.4;
+              border-top: 1px solid #0a7cd6;
+          `;
+          content.textContent = message;
+          
+          popup.appendChild(titleBar);
+          popup.appendChild(content);
+          document.body.appendChild(popup);
+          
+          // Make draggable
+          let isDragging = false;
+          let offsetX, offsetY;
+          
+          titleBar.addEventListener('mousedown', startDrag);
+          document.addEventListener('mousemove', drag);
+          document.addEventListener('mouseup', stopDrag);
+          
+          function startDrag(e) {
+              isDragging = true;
+              offsetX = e.clientX - popup.offsetLeft;
+              offsetY = e.clientY - popup.offsetTop;
+              popup.style.cursor = 'move';
+          }
+          
+          function drag(e) {
+              if (!isDragging) return;
+              e.preventDefault();
+              popup.style.left = (e.clientX - offsetX) + 'px';
+              popup.style.top = (e.clientY - offsetY) + 'px';
+          }
+          
+          function stopDrag() {
+              isDragging = false;
+              popup.style.cursor = 'default';
+          }
+          
+          // Auto-remove after 30 seconds
+          setTimeout(() => {
+              if (popup.parentNode) {
+                  popup.style.opacity = '0';
+                  popup.style.transform = 'scale(0.9)';
+                  setTimeout(() => popup.remove(), 300);
+              }
+          }, 30000);
+      }
+
+      // Add animation for popup appearance
+      if (!document.querySelector('#egg-styles')) {
+          const style = document.createElement('style');
+          style.id = 'egg-styles';
+          style.textContent = `
+              @keyframes popupAppear {
+                  0% { opacity: 0; transform: scale(0.8) translateY(-20px); }
+                  100% { opacity: 1; transform: scale(1) translateY(0); }
+              }
+              .easter-egg-popup {
+                  animation: popupAppear 0.3s ease-out;
+              }
+          `;
+          document.head.appendChild(style);
+      }
+
+        // --- UPDATED TERMINAL EVENT LISTENER ---
+        psInput.addEventListener('keydown', e => {
+            if(e.key === 'Enter') {
+                const cmd = psInput.value.trim();
+                const cmdLower = cmd.toLowerCase();
+                addTerminalOutput(`<span style="color:#00ffff">PS C:\\Users\\Amir&gt;</span> ${cmd}`);
+                
+                // Regular commands
+                if(['blog','about','projects','experience','gallery','skills','contact'].includes(cmdLower)) {
+                    openWindow(cmdLower);
+                    addTerminalOutput(`Opening ${cmdLower}...`);
+                } 
+                // Help command
+                else if(cmdLower === 'help') {
+                    addTerminalOutput('<br>Available: blog, about, projects, experience, gallery, skills, contact, snake, particles, matrix clear<br>Hidden Easter Eggs: Try discovering them e.g. wise, editor!');
+                } 
+                // Rickroll command
+                else if(cmdLower === 'rickroll') {
+              addTerminalOutput(`Never gonna give you up! 🎵<br>https://www.youtube.com/watch?v=dQw4w9WgXcQ<br>⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⢿⠿⠷⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⠛⠉⠀⠀⠀⠐⠒⠒⠒⠺⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠏⡰⠃⠄⠀⠀⠀⠀⠆⠀⠀⢢⠈⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠏⣐⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠈⠂⠙⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠉⢉⡄⢱⣿⣿⣿⣾⣿⣿⣷⣦⡀⠀⢀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⢸⡇⠸⣿⣿⣿⣿⣿⣿⣿⣿⣧⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣏⠂⣀⡜⠁⠀⠂⠀⢹⣯⠉⠉⠛⠻⠏⠀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡏⠀⢻⡇⢸⣿⣷⣆⣸⣿⣷⣶⣶⣿⠀⠼⣻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⠀⢸⡇⣸⣿⠟⣀⣠⣈⣿⣻⣿⡿⠀⢰⣭⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠶⠾⠁⣿⣥⣅⣉⣛⣛⠛⣩⠗⢁⣀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡃⠠⡌⠻⣿⣿⣷⣿⣿⡏⢰⣿⣿⣿⣟⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠏⠀⣦⣍⣀⣈⣉⣡⣊⡅⠈⢴⣶⣭⣛⣿⣻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⢃⡄⡄⢿⣿⣿⣿⣿⣿⡿⢁⡇⠀⠙⠿⣿⣷⡽⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⡿⠿⠘⢰⣿⡇⠓⠚⠻⢿⣿⠿⢋⣴⣿⠁⠀⠀⠀⠀⠀⠈⠑⠛⠛⠻⠿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⡿⢟⡫⠉⠉⠀⠀⠀⣿⣿⣼⣿⣯⠁⠘⢁⣴⢿⣿⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⠋⠁⠒⠉⠀⠀⠀⠀⠀⢳⣿⠿⡟⣿⣿⠘⢰⣷⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠰⡇⣿⣿⠠⠤⢬⣉⣉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⣿⠃⠘⠒⠲⠤⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣿⡷⢠⢉⣈⡓⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣺⣿⡇⠤⢤⣭⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣿⣿⣿⣿⣿⣿⣿⣿
+⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⣿⡇⠒⠶⠖⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⢿⣿⣿⣿⣿⣿
+⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⢉⣉⣉⠁⠀⠀⠀⠀⠐⠒⠶⣶⣶⣶⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠿⣿⣿⣿
+⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢼⣿⠠⠤⣌⠀⠀⠀⠀⠀⠰⠉⣴⣶⣶⣿⣿⣿⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⣿
+⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠺⣸⠐⠲⠄⠀⠀⠀⠀⠀⠀⠈⣿⠛⠛⣛⣿⣿⣿⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿
+⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣹⣿⠈⠒⠂⠀⠀⠀⠀⠀⠀⠀⠘⠚⠛⠻⠿⣿⣿⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢿
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢼⣽⠀⢉⡁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠿⠏⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸
+⠄⠀⠀⠀⣠⣤⠶⠿⢿⣻⣄⠀⠀⡼⣿⠀⠤⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸
+⣾⠀⠀⠜⠁⢼⣶⣯⣤⣤⡴⠀⠀⢹⡟⠐⠒⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⡀⠀⠀⠀⣀⣀⣀⣀⣴⣿⣿
+⣿⡄⠀⠀⠀⠀⢿⣦⣤⠤⠒⠀⠀⣸⡏⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣶⣄⡀⠀⠘⠒⠖⠒⠀⠀⠀⢹⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣦⣄⣀⡀⠀⠀⠀⠀⢸⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⠁⠀⠀⠀⣤⣼⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⡟⠀⠀⠀⠀⣿⣿⢿⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿`);
+                } 
+                // Clear command
+                else if(cmdLower === 'clear') {
+                    psHistory.innerHTML = 'Windows PowerShell (C) 2025 Amir<br><br>';
+                }
+                // EASTER EGGS
+                else if(cmdLower === 'wise') {
+                    addTerminalOutput('As a wise man once said, "I\'m the smartest programmer that\'s ever lived."');
+                }
+                else if(cmdLower === 'grid') {
+                    addTerminalOutput('I am this close to going off the grid and living in the middle of nowhere.\n\n🌲 🌲 🌲\nProgramming in the woods...');
+                }
+                else if(cmdLower === 'editor' || cmdLower === 'vim' || cmdLower === 'emacs') {
+                    addTerminalOutput('Triggering editor easter egg...');
+                    createEasterEggPopup('Vim + Emacs = Doom Emacs\n\n🔥 The eternal editor war continues... 🔥');
+                }
+                // Hidden bonus easter eggs
+                else if(cmdLower === 'secret') {
+                    addTerminalOutput('You found the secret command! 🎯\n\nMay your code compile on the first try!');
+                }
+                else if(cmdLower === 'coffee') {
+                    addTerminalOutput('Brewing coffee...');
+                    createEasterEggPopup('☕ Developer Fuel ☕\n\nError: Coffee not found. Please refill.');
+                }
+                else if(cmdLower === 'matrix') {
+                  addTerminalOutput('Entering the matrix...');
+                  openWindow('matrix')
+                }
+                else if(cmdLower === 'Snake') {
+                  addTerminalOutput('Starting Snake Game...');
+                  openWindow('snake');
+                }
+                else if(cmdLower === 'particles') {
+                  addTerminalOutput('Starting Particle Simulator...');
+                  openWindow('particles');
+                }
+                // Invalid command
+                else if(cmd) {
+                    addTerminalOutput(`The term '${cmd}' is not recognized as the name of a cmdlet, function, script file, or operable program.`);
+                }
+                psInput.value = "";
+            }
+        });
+        // --- UI HELPERS ---
+        function toggleStartMenu() {
+            startMenu.style.display = startMenu.style.display === 'block' ? 'none' : 'block';
+        }
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('clock').innerText = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+        }
+
+        // --- DRAGGING LOGIC ---
+        document.querySelectorAll('.window-header').forEach(header => {
+            header.addEventListener('mousedown', e => {
+                if (e.target.closest('.window-control')) return;
+                const win = header.parentElement;
+                bringToFront(win);
+                activeWindowId = win.id.replace('-window', '');
+                updateTaskbarButtonState();
+                
+                let startX = e.clientX, startY = e.clientY;
+                let startLeft = win.offsetLeft, startTop = win.offsetTop;
+                function move(e) { 
+                    win.style.left = startLeft + (e.clientX - startX) + 'px'; 
+                    win.style.top = startTop + (e.clientY - startY) + 'px'; 
+                }
+                function stop() { window.removeEventListener('mousemove', move); window.removeEventListener('mouseup', stop); }
+                window.addEventListener('mousemove', move); 
+                window.addEventListener('mouseup', stop);
+            });
+        });
+
+        // --- RESIZING LOGIC ---
+        document.querySelectorAll('.resizer').forEach(resizer => {
+            resizer.addEventListener('mousedown', e => {
+                e.preventDefault();
+                const win = resizer.parentElement;
+                bringToFront(win);
+
+                const startWidth = parseFloat(getComputedStyle(win).width);
+                const startHeight = parseFloat(getComputedStyle(win).height);
+                const startX = e.clientX;
+                const startY = e.clientY;
+                const startTop = win.offsetTop;
+                const startLeft = win.offsetLeft;
+
+                function resize(e) {
+                    if (resizer.classList.contains('e')) win.style.width = startWidth + (e.clientX - startX) + 'px';
+                    if (resizer.classList.contains('w')) {
+                        win.style.width = startWidth - (e.clientX - startX) + 'px';
+                        win.style.left = startLeft + (e.clientX - startX) + 'px';
+                    }
+                    if (resizer.classList.contains('s')) win.style.height = startHeight + (e.clientY - startY) + 'px';
+                    if (resizer.classList.contains('n')) {
+                        win.style.height = startHeight - (e.clientY - startY) + 'px';
+                        win.style.top = startTop + (e.clientY - startY) + 'px';
+                    }
+                    if (resizer.classList.contains('se')) {
+                        win.style.width = startWidth + (e.clientX - startX) + 'px';
+                        win.style.height = startHeight + (e.clientY - startY) + 'px';
+                    }
+                    if (resizer.classList.contains('sw')) {
+                        win.style.width = startWidth - (e.clientX - startX) + 'px';
+                        win.style.left = startLeft + (e.clientX - startX) + 'px';
+                        win.style.height = startHeight + (e.clientY - startY) + 'px';
+                    }
+                    if (resizer.classList.contains('ne')) {
+                        win.style.width = startWidth + (e.clientX - startX) + 'px';
+                        win.style.height = startHeight - (e.clientY - startY) + 'px';
+                        win.style.top = startTop + (e.clientY - startY) + 'px';
+                    }
+                    if (resizer.classList.contains('nw')) {
+                        win.style.width = startWidth - (e.clientX - startX) + 'px';
+                        win.style.left = startLeft + (e.clientX - startX) + 'px';
+                        win.style.height = startHeight - (e.clientY - startY) + 'px';
+                        win.style.top = startTop + (e.clientY - startY) + 'px';
+                    }
+                }
+
+                function stopResize() { window.removeEventListener('mousemove', resize); window.removeEventListener('mouseup', stopResize); }
+                window.addEventListener('mousemove', resize);
+                window.addEventListener('mouseup', stopResize);
+            });
+        });
+
+        // PGP Key Functions
+        function showPGPKey() {
+            const pgpKey = `-----BEGIN PGP PUBLIC KEY BLOCK-----
+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 8/AAOko4 =niBL        
+-----END PGP PUBLIC KEY BLOCK-----`;
+            
+            const modal = document.createElement('div');
+            modal.style.cssText = `position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #ece9d8; padding: 20px; border: 2px solid #0831D9; box-shadow: 0 0 0 3px #4C8BF5, 0 0 20px rgba(0,0,0,0.5); z-index: 10000; width: 600px; max-width: 90%; max-height: 80vh; overflow: hidden;`;
+            modal.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #ccc; padding-bottom: 10px;">
+                    <div style="font-weight: bold; color: #0053EE; font-size: 16px;">
+                        <i class="fas fa-key"></i> PGP Public Key
+                    </div>
+                    <button onclick="this.parentElement.parentElement.remove()" style="background: #dc3545; color: white; border: none; border-radius: 3px; padding: 5px 10px; cursor: pointer;">×</button>
+                </div>
+                <div style="margin-bottom: 15px; font-size: 12px; color: #666;">
+                    Fingerprint: [YOUR KEY FINGERPRINT]
+                </div>
+                <textarea readonly style="width: 100%; height: 300px; font-family: 'Consolas', monospace; font-size: 11px; padding: 10px; background: #f8f9fa; border: 1px solid #ccc; border-radius: 3px; resize: none; overflow-y: auto;">${pgpKey}</textarea>
+                <div style="margin-top: 15px; display: flex; gap: 10px;">
+                    <button onclick="copyPGPKey(this)" style="padding: 8px 15px; background: #28a745; color: white; border: none; border-radius: 3px; cursor: pointer; font-weight: bold; flex: 1;">
+                        <i class="fas fa-copy"></i> Copy Key
+                    </button>
+                    <button onclick="downloadPGPKey()" style="padding: 8px 15px; background: #0078d7; color: white; border: none; border-radius: 3px; cursor: pointer; font-weight: bold; flex: 1;">
+                        <i class="fas fa-download"></i> Download .asc
+                    </button>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        function copyPGPKey(buttonElement) {
+            const pgpKey = `-----BEGIN PGP PUBLIC KEY BLOCK-----\n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 8/AAOko4 =niBL\n-----END PGP PUBLIC KEY BLOCK-----`;
+            /// Store original state - store the actual inline style value
+            const originalHTML = buttonElement.innerHTML;
+            const originalBackground = buttonElement.style.background;
+            const originalColor = buttonElement.style.color;
+            const originalBorderColor = buttonElement.style.borderColor;
+            const originalOpacity = buttonElement.style.opacity;
+            
+            // Add loading state
+            buttonElement.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Copying...';
+            buttonElement.style.opacity = '0.8';
+            buttonElement.disabled = true;
+            
+            navigator.clipboard.writeText(pgpKey).then(() => {
+                // Success state
+                buttonElement.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                buttonElement.style.background = '#28a745';
+                buttonElement.style.color = 'white';
+                buttonElement.style.borderColor = '#28a745';
+                buttonElement.classList.add('copy-success');
+                buttonElement.title = 'PGP key copied to clipboard!';
+                
+                // Revert after 2 seconds
+                setTimeout(() => {
+                    buttonElement.innerHTML = originalHTML;
+                    buttonElement.style.background = originalBackground;
+                    buttonElement.style.color = originalColor;
+                    buttonElement.style.borderColor = originalBorderColor;
+                    buttonElement.style.opacity = originalOpacity;
+                    buttonElement.disabled = false;
+                    buttonElement.title = '';
+                    buttonElement.classList.remove('copy-success');
+                }, 2000);
+                
+            }).catch(err => {
+                // Error state
+                buttonElement.innerHTML = '<i class="fas fa-times"></i> Failed';
+                buttonElement.style.background = '#dc3545';
+                buttonElement.style.color = 'white';
+                
+                setTimeout(() => {
+                    buttonElement.innerHTML = originalHTML;
+                    buttonElement.style.background = originalBackground;
+                    buttonElement.style.color = originalColor;
+                    buttonElement.style.borderColor = originalBorderColor;
+                    buttonElement.style.opacity = originalOpacity;
+                    buttonElement.disabled = false;
+                }, 2000);
+                
+                console.error('Failed to copy PGP key: ', err);
+            });
+        }
+        function downloadPGPKey() {
+            const pgpKey = `-----BEGIN PGP PUBLIC KEY BLOCK-----\n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 8/AAOko4 =niBL\n-----END PGP PUBLIC KEY BLOCK-----`;
+            const blob = new Blob([pgpKey], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'amirh32_pubkey.asc';
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+
+        // For Option 2 (expandable section)
+        function togglePGPSection() {
+            const section = document.getElementById('pgp-section');
+            const arrow = document.getElementById('pgp-arrow');
+            if (section.style.display === 'none') {
+                section.style.display = 'block';
+                arrow.classList.remove('fa-chevron-down');
+                arrow.classList.add('fa-chevron-up');
+            } else {
+                section.style.display = 'none';
+                arrow.classList.remove('fa-chevron-up');
+                arrow.classList.add('fa-chevron-down');
+            }
+        }
+
+        // --- INITIALIZATION ---
+        window.onload = () => {
+            updateClock();
+            setInterval(updateClock, 1000);
+        };
+
+        document.addEventListener('click', (e) => {
+            if (!startMenu.contains(e.target) && !e.target.closest('.start-btn')) {
+                startMenu.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
