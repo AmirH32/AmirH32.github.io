@@ -20,6 +20,33 @@
             overflow: hidden;
             position: relative;
         }
+        
+        @media (max-width: 768px) {
+          /* Stack icons in a single column */
+          .desktop {
+              flex-direction: column;
+              align-content: center;
+              overflow-y: auto;
+          }
+          
+          /* Force windows to be full-screen on mobile */
+          .window {
+              width: 100% !important;
+              height: calc(100vh - 40px) !important;
+              top: 0 !important;
+              left: 0 !important;
+              position: fixed;
+          }
+
+          /* Hide desktop-only features like the resizer */
+          .resizer { display: none; }
+          
+          /* Make the taskbar buttons smaller to fit */
+          .taskbar-window-btn {
+              min-width: 60px;
+              font-size: 10px;
+          }
+        }
 
         .desktop-bg {
             position: fixed;
@@ -1593,6 +1620,42 @@
         let zIndexCounter = 10000;
         const taskbarWindows = document.getElementById('taskbar-windows');
         const startMenu = document.getElementById('start-menu');
+        
+        // Swipe Control Logic
+        let touchStartX = 0;
+        let touchStartY = 0;
+
+        const snakeCanvas = document.getElementById('snake-canvas');
+
+        snakeCanvas.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+            touchStartY = e.changedTouches[0].screenY;
+            // Prevent scrolling when playing
+            if (activeWindowId === 'snake') e.preventDefault();
+        }, { passive: false });
+
+        snakeCanvas.addEventListener('touchend', (e) => {
+            if (activeWindowId !== 'snake' || snakePaused || snakeGameOver) return;
+
+            let touchEndX = e.changedTouches[0].screenX;
+            let touchEndY = e.changedTouches[0].screenY;
+
+            let dx = touchEndX - touchStartX;
+            let dy = touchEndY - touchStartY;
+
+            // Threshold to prevent accidental moves (min 30px swipe)
+            if (Math.abs(dx) > Math.abs(dy)) {
+                if (Math.abs(dx) > 30) {
+                    if (dx > 0 && direction !== 'LEFT') nextDirection = 'RIGHT';
+                    else if (dx < 0 && direction !== 'RIGHT') nextDirection = 'LEFT';
+                }
+            } else {
+                if (Math.abs(dy) > 30) {
+                    if (dy > 0 && direction !== 'UP') nextDirection = 'DOWN';
+                    else if (dy < 0 && direction !== 'DOWN') nextDirection = 'UP';
+                }
+            }
+        }, { passive: false });
 
         function shutdownSystem() {
             const overlay = document.getElementById('shutdown-overlay');
@@ -1866,7 +1929,6 @@
               let snake, food, direction, nextDirection, score;
               let snakePaused = false;
               let snakeGameOver = false;
-              const snakeCanvas = document.getElementById('snake-canvas');
               const sCtx = snakeCanvas.getContext('2d');
 
               function startSnake() {
